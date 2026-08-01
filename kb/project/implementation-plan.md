@@ -28,7 +28,7 @@ convention — see
   a switcher has nothing to switch to — it'd be dead UI. Build it when the
   `tr` locale milestone starts.
 - **i18n routing exists, `tr/` content doesn't.** `astro.config.mjs` declares
-  only `en` as a locale for now. Adding `tr` later is: add `src/content/tr.json`,
+  only `en` as a locale for now. Adding `tr` later is: add `src/data/tr.json`,
   add `tr` to the `locales` array, add `src/pages/tr/*.astro` mirroring
   `en/*.astro`. No component changes needed — every component reads copy from
   the locale JSON, none hardcode English strings.
@@ -55,7 +55,7 @@ convention — see
 
 - **Framework:** Astro, static output, `astro:i18n` routing.
 - **Styling:** `src/styles/global.css` — design tokens as CSS custom properties.
-- **Content:** `src/content/{locale}.json`, flat key-value copy strings —
+- **Content:** `src/data/{locale}.json`, flat key-value copy strings —
   never hardcode text inside `.astro` components.
 - **Forms:** client-side `mailto:` composition, no backend (see Decisions above).
 - **CI/CD:** GitHub Actions → GitHub Pages (`actions/deploy-pages`).
@@ -89,7 +89,7 @@ website/
 │   │       ├── index.astro
 │   │       └── portal.astro       # "/" -> "/en/" is a static redirect,
 │   │                               # see `redirects` in astro.config.mjs
-│   ├── content/
+│   ├── data/
 │   │   └── en.json
 │   └── styles/
 │       └── global.css

@@ -5,8 +5,8 @@
 | Path | Purpose | Content source |
 |---|---|---|
 | `/` | Static redirect to `/en/` | `astro.config.mjs` `redirects` |
-| `/en/` | Single-page marketing site: Hero, Problem, Product, Focus Areas, About, Contact | `src/content/en.json` |
-| `/en/portal` | Customer portal stub — explains the future capability, email-capture "notify me" | `src/content/en.json` (`portal` key) |
+| `/en/` | Single-page marketing site: Hero, Problem, Product, Focus Areas, About, Contact | `src/data/en.json` |
+| `/en/portal` | Customer portal stub — explains the future capability, email-capture "notify me" | `src/data/en.json` (`portal` key) |
 
 Content owner: not yet assigned — flag for whoever owns marketing copy once
 the site is live.
@@ -14,7 +14,7 @@ the site is live.
 ## Locales
 
 - `en` — live, source of truth for all copy.
-- `tr` — not started. When it starts: add `src/content/tr.json` mirroring
+- `tr` — not started. When it starts: add `src/data/tr.json` mirroring
   `en.json`'s keys, add `'tr'` to `astro.config.mjs`'s `i18n.locales`, add
   `src/pages/tr/index.astro` + `portal.astro`, build `LanguageSwitcher.astro`.
   Machine-translate first pass is fine but needs native-speaker review before

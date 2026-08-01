@@ -8,7 +8,9 @@
 - **Styling:** plain CSS. Cross-cutting tokens/reset/typography in
   `src/styles/global.css`; everything else is scoped `<style>` blocks inside
   each `.astro` component.
-- **Content:** `src/content/{locale}.json` + `src/i18n/content.ts`
+- **Content:** `src/data/{locale}.json` (deliberately not `src/content/` —
+  that name is reserved for Astro's Content Collections API and triggers a
+  build warning if reused for plain data) + `src/i18n/content.ts`
   (`getContent(locale)`). Components never hardcode copy — see
   `content-inventory.md`.
 - **Forms:** no backend. Contact and portal notify-me forms compose a

@@ -1,4 +1,4 @@
-import en from '../content/en.json';
+import en from '../data/en.json';
 
 // Add `tr` here once src/content/tr.json exists — see kb/project/implementation-plan.md
 const content = { en } as const;
