@@ -1,0 +1,144 @@
+{
+  "meta": {
+    "title": "korit.ai — Mapping doesn't stop where GPS does",
+    "description": "korit.ai builds 3D mapping hardware that carries automotive-grade sensor fusion from the open street into GPS-denied interiors."
+  },
+  "nav": {
+    "product": "Product",
+    "focus": "Focus Areas",
+    "about": "About",
+    "contact": "Contact",
+    "portal": "Customer Portal",
+    "cta": "Get in touch"
+  },
+  "hero": {
+    "eyebrow": "Outdoor → Indoor · SLAM Mapping",
+    "headline_pre": "Mapping doesn't stop where ",
+    "headline_em": "GPS",
+    "headline_post": " does.",
+    "lead": "korit.ai builds 3D mapping hardware that carries automotive-grade sensor fusion — LiDAR, cameras, IMU, GNSS/INS — from the open street into GPS-denied interiors, without losing accuracy at the door.",
+    "cta_primary": "Get in touch",
+    "cta_secondary": "See the concept",
+    "telemetry_1": "LAT 41.0082°N · LON 28.9784°E",
+    "telemetry_2": "SCAN ACTIVE · FUSING 4 SENSORS",
+    "baseline": {
+      "founder": { "label": "Founder background", "value": "Automotive SLAM, LiDAR, GNSS/INS fusion" },
+      "partner": { "label": "Partner background", "value": "Civil & architecture engineering" },
+      "status": { "label": "Status", "value": "Early development" }
+    }
+  },
+  "problem": {
+    "eyebrow": "The problem",
+    "headline": "Most mapping systems lose accuracy the moment you walk indoors.",
+    "body": "Professional 3D mapping tools are largely built indoor-first, for GPS-denied environments. That's the opposite of how autonomous vehicles are engineered — where outdoor and indoor-like conditions (tunnels, parking structures, dense urban canyons) are fused continuously, without a hard seam. We think mapping hardware should work the same way: one continuous track from the street to the stairwell.",
+    "chart": {
+      "axis_high": "high",
+      "axis_low": "low",
+      "axis_door": "door",
+      "axis_outdoor": "outdoor",
+      "axis_indoor": "indoor",
+      "legend_typical": "Typical indoor-first systems",
+      "legend_continuous": "Continuous outdoor–indoor fusion"
+    }
+  },
+  "product": {
+    "eyebrow": "The concept",
+    "headline": "One sensor platform, mounted your way.",
+    "lead": "A single hardware core — 360° LiDAR, global-shutter camera, IMU, and GNSS, writing to a hot-swappable SSD — moves between four physical mounts depending on how a site needs to be captured. Raw data is processed off-device, so the same core can serve very different workflows.",
+    "forms": [
+      {
+        "index": "01 / WEARABLE",
+        "title": "Worn",
+        "body": "A stabilized frame, adapted from camera-rig design, to keep walking motion from adding noise to the scan."
+      },
+      {
+        "index": "02 / VEHICLE",
+        "title": "Vehicle-mounted",
+        "body": "The same sensor core rides on a car or cart for corridor, roadway, or site-perimeter capture at speed."
+      },
+      {
+        "index": "03 / ROBOT",
+        "title": "Robot-mounted",
+        "body": "Fits robotic platforms for repeatable, scheduled capture in spaces that are hazardous or hard to access."
+      },
+      {
+        "index": "04 / STATIONARY",
+        "title": "Fixed",
+        "body": "Mounted in place for long-duration or before/after comparison capture of a single location."
+      }
+    ],
+    "specs": ["360° LiDAR", "Global-shutter camera", "IMU", "GNSS/INS", "Hot-swap SSD", "Plug-in display"],
+    "note": "korit.ai is in early development. The configuration shown reflects our current design direction and will evolve as hardware and field testing progress."
+  },
+  "focus": {
+    "eyebrow": "Where we're focused",
+    "headline": "Early conversations, not a finished list.",
+    "lead": "We're working directly with early partners to figure out where continuous outdoor-indoor capture matters most. These are the areas we're exploring right now — if one sounds like your world, we'd like to hear how you map it today.",
+    "cards": [
+      {
+        "tag": "AEC",
+        "title": "Construction documentation",
+        "body": "As-built capture that follows a site from the yard to the fourth floor without re-anchoring."
+      },
+      {
+        "tag": "INFRA",
+        "title": "Infrastructure & facility surveys",
+        "body": "Continuous capture across mixed indoor/outdoor infrastructure — utilities, plants, campuses."
+      },
+      {
+        "tag": "OPS",
+        "title": "Facility management",
+        "body": "Repeatable scans of the same site over time, for change tracking and space planning."
+      },
+      {
+        "tag": "HERITAGE",
+        "title": "Heritage & as-built records",
+        "body": "Documentation of buildings and grounds where outdoor context and interior detail both matter."
+      }
+    ]
+  },
+  "about": {
+    "eyebrow": "About",
+    "headline": "Built by people who've mapped the world at driving speed.",
+    "cards": [
+      {
+        "role": "Founder — Sensor Systems & SLAM",
+        "title": "From autonomous driving to indoor mapping",
+        "body": "Background in SLAM algorithms, LiDAR, cameras, IMUs, and GNSS/INS sensors, with hands-on experience in sensor synchronization and calibration for autonomous vehicles — plus software and hardware project management."
+      },
+      {
+        "role": "Partner — Civil & Architecture",
+        "title": "Grounding the hardware in real sites",
+        "body": "Civil and architecture engineering background, leading research into target use cases and the customers who'll actually carry this hardware through a building."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Get in touch",
+    "headline": "Tell us about your mapping problem.",
+    "body": "Whether you're evaluating mapping hardware, working in one of the areas above, or just curious what we're building — we'd like to hear from you.",
+    "email": "hello@korit.ai",
+    "form": {
+      "name_label": "Name",
+      "email_label": "Email",
+      "message_label": "Message",
+      "message_placeholder": "What are you mapping, and what's not working today?",
+      "submit": "Send message",
+      "success": "Your email client should open with this pre-filled — hit send there to reach us."
+    }
+  },
+  "portal": {
+    "eyebrow": "Customer Portal",
+    "headline": "Coming soon.",
+    "body": "korit.ai customers will be able to log in here to upload mapping data for processing directly to our team. We're not live yet — leave your email and we'll let you know the moment it opens.",
+    "form": {
+      "email_label": "Email",
+      "submit": "Notify me",
+      "success": "Your email client should open — send it and we'll add you to the list."
+    },
+    "back_link": "← Back to home"
+  },
+  "footer": {
+    "tagline": "3D mapping, outdoor to indoor"
+  }
+}

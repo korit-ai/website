@@ -1,0 +1,151 @@
+---
+import ScanGraphic from './ScanGraphic.astro';
+
+interface Props {
+  hero: {
+    eyebrow: string;
+    headline_pre: string;
+    headline_em: string;
+    headline_post: string;
+    lead: string;
+    cta_primary: string;
+    cta_secondary: string;
+    telemetry_1: string;
+    telemetry_2: string;
+    baseline: {
+      founder: { label: string; value: string };
+      partner: { label: string; value: string };
+      status: { label: string; value: string };
+    };
+  };
+}
+
+const { hero } = Astro.props;
+---
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">{hero.eyebrow}</span>
+        <h1>{hero.headline_pre}<em>{hero.headline_em}</em>{hero.headline_post}</h1>
+        <p class="lead">{hero.lead}</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary">{hero.cta_primary}</a>
+          <a href="#product" class="btn btn-ghost-light">{hero.cta_secondary}</a>
+        </div>
+      </div>
+      <div class="scan-wrap" aria-hidden="true">
+        <span class="telemetry t1">{hero.telemetry_1}</span>
+        <span class="telemetry t2">{hero.telemetry_2}</span>
+        <ScanGraphic />
+      </div>
+    </div>
+    <div class="hero-baseline">
+      <span><b>{hero.baseline.founder.label}</b> — {hero.baseline.founder.value}</span>
+      <span><b>{hero.baseline.partner.label}</b> — {hero.baseline.partner.value}</span>
+      <span><b>{hero.baseline.status.label}</b> — {hero.baseline.status.value}</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: var(--navy);
+    color: var(--paper);
+    padding: 96px 0 0 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 40px;
+    align-items: center;
+    padding-bottom: 70px;
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 56px;
+    }
+  }
+
+  .hero .eyebrow {
+    color: var(--amber-bright);
+    margin-bottom: 22px;
+  }
+
+  .hero h1 {
+    font-size: clamp(34px, 5vw, 54px);
+    line-height: 1.08;
+    color: #fff;
+    margin-bottom: 22px;
+  }
+
+  .hero h1 em {
+    color: var(--cyan);
+    font-style: normal;
+  }
+
+  .hero p.lead {
+    font-size: 17.5px;
+    color: rgba(236, 231, 216, 0.72);
+    max-width: 520px;
+    margin-bottom: 34px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .hero-ctas .btn-ghost-light {
+    border: 1px solid rgba(236, 231, 216, 0.35);
+  }
+
+  .scan-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 6 / 5;
+  }
+
+  .telemetry {
+    position: absolute;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--cyan);
+    letter-spacing: 0.04em;
+    opacity: 0.85;
+  }
+
+  .t1 {
+    top: 2%;
+    left: 2%;
+  }
+
+  .t2 {
+    bottom: 4%;
+    right: 2%;
+    text-align: right;
+  }
+
+  .hero-baseline {
+    border-top: 1px solid rgba(236, 231, 216, 0.14);
+    padding: 22px 0;
+    display: flex;
+    gap: 44px;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: rgba(236, 231, 216, 0.55);
+  }
+
+  .hero-baseline b {
+    color: var(--paper);
+    font-weight: 500;
+  }
+</style>

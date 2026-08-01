@@ -1,0 +1,115 @@
+---
+// Composes a mailto: link on submit — no form backend required. See
+// "Contact form backend" in kb/project/implementation-plan.md for why, and
+// how to swap this for a real backend (Formspree, a Google Form, etc.)
+// later if proper lead capture / spam filtering is needed.
+interface Props {
+  email: string;
+  form: {
+    name_label: string;
+    email_label: string;
+    message_label: string;
+    message_placeholder: string;
+    submit: string;
+    success: string;
+  };
+}
+
+const { email, form } = Astro.props;
+---
+
+<form class="reveal contact-form" data-mailto={email} data-success={form.success}>
+  <div class="field">
+    <label for="cname">{form.name_label}</label>
+    <input id="cname" name="name" type="text" required />
+  </div>
+  <div class="field">
+    <label for="cemail">{form.email_label}</label>
+    <input id="cemail" name="email" type="email" required />
+  </div>
+  <div class="field">
+    <label for="cmsg">{form.message_label}</label>
+    <textarea id="cmsg" name="message" required placeholder={form.message_placeholder}></textarea>
+  </div>
+  <div class="submit-row">
+    <button type="submit" class="btn btn-primary">{form.submit}</button>
+    <p class="form-status" role="status" aria-live="polite"></p>
+  </div>
+</form>
+
+<style>
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  label {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--fog-dark);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  input,
+  textarea {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--paper-line);
+    border-radius: 4px;
+    padding: 12px 14px;
+    resize: vertical;
+  }
+
+  textarea {
+    min-height: 110px;
+  }
+
+  .submit-row {
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .submit-row .btn {
+    border: none;
+  }
+
+  .form-status {
+    font-size: 13.5px;
+    color: var(--navy);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('.contact-form').forEach((form) => {
+    const status = form.querySelector<HTMLParagraphElement>('.form-status');
+    const mailto = form.dataset.mailto ?? '';
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const name = form.querySelector<HTMLInputElement>('#cname')?.value ?? '';
+      const email = form.querySelector<HTMLInputElement>('#cemail')?.value ?? '';
+      const message = form.querySelector<HTMLTextAreaElement>('#cmsg')?.value ?? '';
+
+      const subject = `Website inquiry from ${name}`;
+      const body = `${message}\n\n— ${name} (${email})`;
+      window.location.href = `mailto:${mailto}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      if (status) {
+        status.textContent = form.dataset.success ?? '';
+      }
+    });
+  });
+</script>

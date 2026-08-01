@@ -1,0 +1,45 @@
+---
+interface Props {
+  index: string;
+  title: string;
+  body: string;
+}
+
+const { index, title, body } = Astro.props;
+---
+
+<div class="form-card reveal">
+  <span class="idx">{index}</span>
+  <h3>{title}</h3>
+  <p>{body}</p>
+</div>
+
+<style>
+  .form-card {
+    background: var(--ink);
+    padding: 30px 24px;
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .idx {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--cyan);
+    margin-bottom: 18px;
+  }
+
+  h3 {
+    font-size: 17px;
+    color: #fff;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 14px;
+    color: rgba(236, 231, 216, 0.6);
+    flex-grow: 1;
+  }
+</style>

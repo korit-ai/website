@@ -1,0 +1,43 @@
+---
+interface Props {
+  tagline: string;
+}
+
+const { tagline } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <div class="wrap">
+    <span class="flogo">korit.ai</span>
+    <span class="fmeta">© {year} korit.ai · {tagline}</span>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: var(--ink);
+    color: rgba(236, 231, 216, 0.55);
+    padding: 40px 0;
+  }
+
+  footer .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .flogo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: #fff;
+    font-size: 15px;
+  }
+
+  .fmeta {
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+</style>

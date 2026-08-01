@@ -1,0 +1,160 @@
+---
+import type { Locale } from '../i18n/content';
+
+interface Props {
+  locale: Locale;
+  nav: {
+    product: string;
+    focus: string;
+    about: string;
+    contact: string;
+    portal: string;
+    cta: string;
+  };
+}
+
+const { locale, nav } = Astro.props;
+const home = `/${locale}/`;
+---
+
+<header>
+  <nav class="wrap">
+    <a href={home} class="logo"><span class="mark"></span>korit.ai</a>
+    <div class="navlinks" id="site-nav">
+      <a href={`${home}#product`}>{nav.product}</a>
+      <a href={`${home}#focus`}>{nav.focus}</a>
+      <a href={`${home}#about`}>{nav.about}</a>
+      <a href={`${home}#contact`}>{nav.contact}</a>
+      <a href={`/${locale}/portal`}>{nav.portal}</a>
+    </div>
+    <div class="navcta">
+      <a href={`${home}#contact`} class="btn btn-primary">{nav.cta}</a>
+      <button class="hamburger" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<style>
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(236, 231, 216, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--paper-line);
+  }
+
+  nav.wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+
+  .logo .mark {
+    width: 11px;
+    height: 11px;
+    background: var(--navy);
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .logo .mark::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border: 1px solid var(--amber);
+    border-radius: 4px;
+  }
+
+  .navlinks {
+    display: flex;
+    gap: 36px;
+    align-items: center;
+  }
+
+  .navlinks a {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--fog-dark);
+    transition: color 0.15s ease;
+  }
+
+  .navlinks a:hover {
+    color: var(--ink);
+  }
+
+  .navcta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    width: 22px;
+    height: 2px;
+    background: var(--ink);
+  }
+
+  @media (max-width: 860px) {
+    .navlinks {
+      display: none;
+    }
+
+    .navlinks.is-open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: var(--paper);
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--paper-line);
+      gap: 18px;
+    }
+
+    .hamburger {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('site-nav');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = nav?.classList.toggle('is-open');
+    toggle?.setAttribute('aria-expanded', String(Boolean(isOpen)));
+  });
+
+  nav?.addEventListener('click', (event) => {
+    if ((event.target as HTMLElement).tagName === 'A') {
+      nav?.classList.remove('is-open');
+      toggle?.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>

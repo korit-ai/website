@@ -1,0 +1,46 @@
+---
+interface Props {
+  tag: string;
+  title: string;
+  body: string;
+}
+
+const { tag, title, body } = Astro.props;
+---
+
+<div class="focus-card reveal">
+  <span class="tag">{tag}</span>
+  <h3>{title}</h3>
+  <p>{body}</p>
+</div>
+
+<style>
+  .focus-card {
+    background: #fff;
+    border: 1px solid var(--paper-line);
+    border-radius: 6px;
+    padding: 24px 20px;
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--navy);
+    background: rgba(19, 34, 61, 0.07);
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-bottom: 16px;
+    letter-spacing: 0.03em;
+  }
+
+  h3 {
+    font-size: 15.5px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 13.5px;
+    color: var(--fog-dark);
+  }
+</style>
