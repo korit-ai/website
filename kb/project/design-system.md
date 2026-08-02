@@ -31,10 +31,22 @@ Google Fonts in `BaseLayout.astro`.
   into a building" signature visual. Respects `prefers-reduced-motion`.
 - `FocusCard.astro`, `FormFactorCard.astro` — repeated card grids (Focus
   Areas, Product form-factors).
-- `ContactForm.astro` — composes a `mailto:` link on submit, no backend
-  (see `implementation-plan.md` for the trade-off and when to upgrade).
+- `ContactForm.astro` — the "General Inquiry" panel (name, email, message).
+  `DemoRequestForm.astro` — the "Request a Demo" panel (adds company,
+  industry, use-case). Both POST through `src/lib/leadForm.ts`'s shared
+  `submitLead()` — see `stack.md`.
 - `LanguageSwitcher.astro` — **not built yet**, deferred to the `tr` locale
   milestone (see `implementation-plan.md`).
+
+## Contact section anchors
+
+`#contact` is the whole section; `#demo` is the "Request a Demo" panel
+specifically (`.panel-demo` in `src/pages/en/index.astro`), given
+`scroll-margin-top` so it lands cleanly below the sticky header when the
+Hero and Product CTAs deep-link to it. If you add more anchor targets that
+sit below the fold, give them the same `scroll-margin-top` treatment rather
+than relying on the browser's default (which the sticky header would partly
+cover).
 
 All page-section layout (grid, spacing per section) lives scoped inside
 `src/pages/en/index.astro`'s own `<style>` block, since those sections are

@@ -13,10 +13,16 @@
   build warning if reused for plain data) + `src/i18n/content.ts`
   (`getContent(locale)`). Components never hardcode copy — see
   `content-inventory.md`.
-- **Forms:** no backend. Contact and portal notify-me forms compose a
-  `mailto:` link client-side on submit (`ContactForm.astro`, `en/portal.astro`)
-  — see the Decisions table in `implementation-plan.md` for the trade-off and
-  when to revisit it.
+- **Forms:** Google Form backend, POSTed to with `fetch(..., {mode:'no-cors'})`.
+  Config (`formResponse` URL, `entry.*` field IDs) lives in one place,
+  `src/lib/leadForm.ts`, currently placeholder values — see Open Items in
+  `implementation-plan.md`. Three forms share it: `DemoRequestForm.astro`
+  ("Request a Demo"), `ContactForm.astro` ("General Inquiry"), and the
+  `/en/portal` notify-me form — each tags its submission with a distinct
+  `Inquiry Type` value.
+- **Analytics:** GoatCounter, cookieless/no consent banner. Script tag in
+  `BaseLayout.astro`, custom events fired per form via `src/lib/analytics.ts`'s
+  `trackEvent()`. Site code is a placeholder — see Open Items.
 - **Sitemap:** `@astrojs/sitemap`, generated at build time from `site:` in
   `astro.config.mjs`.
 - **Hosting:** GitHub Pages, custom domain `korit.ai` via `public/CNAME`.

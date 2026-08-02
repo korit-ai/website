@@ -1,10 +1,7 @@
 ---
-// Composes a mailto: link on submit — no form backend required. See
-// "Contact form backend" in kb/project/implementation-plan.md for why, and
-// how to swap this for a real backend (Formspree, a Google Form, etc.)
-// later if proper lead capture / spam filtering is needed.
+// Google Form-backed general-inquiry form. See src/lib/leadForm.ts and
+// kb/project/specs/lead-capture-demo-analytics.md for the backend/analytics wiring.
 interface Props {
-  email: string;
   form: {
     name_label: string;
     email_label: string;
@@ -12,13 +9,14 @@ interface Props {
     message_placeholder: string;
     submit: string;
     success: string;
+    error: string;
   };
 }
 
-const { email, form } = Astro.props;
+const { form } = Astro.props;
 ---
 
-<form class="reveal contact-form" data-mailto={email} data-success={form.success}>
+<form class="reveal contact-form" data-success={form.success} data-error={form.error}>
   <div class="field">
     <label for="cname">{form.name_label}</label>
     <input id="cname" name="name" type="text" required />
@@ -89,26 +87,43 @@ const { email, form } = Astro.props;
     font-size: 13.5px;
     color: var(--navy);
   }
+
+  .form-status[data-state='err'] {
+    color: #b0432c;
+  }
 </style>
 
 <script>
+  import { submitLead } from '../lib/leadForm';
+  import { trackEvent } from '../lib/analytics';
+
   document.querySelectorAll<HTMLFormElement>('.contact-form').forEach((form) => {
     const status = form.querySelector<HTMLParagraphElement>('.form-status');
-    const mailto = form.dataset.mailto ?? '';
 
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
+      const submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      submitButton?.setAttribute('disabled', 'true');
 
       const name = form.querySelector<HTMLInputElement>('#cname')?.value ?? '';
       const email = form.querySelector<HTMLInputElement>('#cemail')?.value ?? '';
       const message = form.querySelector<HTMLTextAreaElement>('#cmsg')?.value ?? '';
 
-      const subject = `Website inquiry from ${name}`;
-      const body = `${message}\n\n— ${name} (${email})`;
-      window.location.href = `mailto:${mailto}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-      if (status) {
-        status.textContent = form.dataset.success ?? '';
+      try {
+        await submitLead({ name, email, message }, 'General Contact');
+        trackEvent('general_contact_submitted');
+        if (status) {
+          status.textContent = form.dataset.success ?? '';
+          status.dataset.state = 'ok';
+        }
+        form.reset();
+      } catch {
+        if (status) {
+          status.textContent = form.dataset.error ?? '';
+          status.dataset.state = 'err';
+        }
+      } finally {
+        submitButton?.removeAttribute('disabled');
       }
     });
   });

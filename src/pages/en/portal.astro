@@ -19,7 +19,7 @@ const t = getContent('en');
         <h1>{t.portal.headline}</h1>
         <p>{t.portal.body}</p>
 
-        <form class="notify-form reveal" data-mailto={t.contact.email} data-success={t.portal.form.success}>
+        <form class="notify-form reveal" data-success={t.portal.form.success} data-error={t.portal.form.error}>
           <div class="field">
             <label for="pemail">{t.portal.form.email_label}</label>
             <input id="pemail" name="email" type="email" required />
@@ -101,6 +101,10 @@ const t = getContent('en');
     color: var(--navy);
   }
 
+  .form-status[data-state='err'] {
+    color: #b0432c;
+  }
+
   .back-link {
     display: inline-block;
     margin-top: 34px;
@@ -117,21 +121,35 @@ const t = getContent('en');
 </style>
 
 <script>
+  import { submitLead } from '../../lib/leadForm';
+  import { trackEvent } from '../../lib/analytics';
+
   const formEl = document.querySelector<HTMLFormElement>('.notify-form');
 
-  formEl?.addEventListener('submit', (event) => {
+  formEl?.addEventListener('submit', async (event) => {
     event.preventDefault();
     const form = event.currentTarget as HTMLFormElement;
     const status = form.querySelector<HTMLParagraphElement>('.form-status');
-    const mailto = form.dataset.mailto ?? '';
+    const submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    submitButton?.setAttribute('disabled', 'true');
+
     const email = form.querySelector<HTMLInputElement>('#pemail')?.value ?? '';
 
-    const subject = 'Notify me when the portal launches';
-    const body = `Please notify me at: ${email}`;
-    window.location.href = `mailto:${mailto}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    if (status) {
-      status.textContent = form.dataset.success ?? '';
+    try {
+      await submitLead({ email }, 'Portal Interest');
+      trackEvent('portal_interest_submitted');
+      if (status) {
+        status.textContent = form.dataset.success ?? '';
+        status.dataset.state = 'ok';
+      }
+      form.reset();
+    } catch {
+      if (status) {
+        status.textContent = form.dataset.error ?? '';
+        status.dataset.state = 'err';
+      }
+    } finally {
+      submitButton?.removeAttribute('disabled');
     }
   });
 </script>

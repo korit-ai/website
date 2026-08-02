@@ -17,7 +17,7 @@
     "headline_em": "GPS",
     "headline_post": " does.",
     "lead": "korit.ai builds 3D mapping hardware that carries automotive-grade sensor fusion — LiDAR, cameras, IMU, GNSS/INS — from the open street into GPS-denied interiors, without losing accuracy at the door.",
-    "cta_primary": "Get in touch",
+    "cta_primary": "Request a Demo",
     "cta_secondary": "See the concept",
     "telemetry_1": "LAT 41.0082°N · LON 28.9784°E",
     "telemetry_2": "SCAN ACTIVE · FUSING 4 SENSORS",
@@ -68,7 +68,8 @@
       }
     ],
     "specs": ["360° LiDAR", "Global-shutter camera", "IMU", "GNSS/INS", "Hot-swap SSD", "Plug-in display"],
-    "note": "korit.ai is in early development. The configuration shown reflects our current design direction and will evolve as hardware and field testing progress."
+    "note": "korit.ai is in early development. The configuration shown reflects our current design direction and will evolve as hardware and field testing progress.",
+    "demo_cta": "Request a Demo"
   },
   "focus": {
     "eyebrow": "Where we're focused",
@@ -118,13 +119,37 @@
     "headline": "Tell us about your mapping problem.",
     "body": "Whether you're evaluating mapping hardware, working in one of the areas above, or just curious what we're building — we'd like to hear from you.",
     "email": "hello@korit.ai",
-    "form": {
-      "name_label": "Name",
-      "email_label": "Email",
-      "message_label": "Message",
-      "message_placeholder": "What are you mapping, and what's not working today?",
-      "submit": "Send message",
-      "success": "Your email client should open with this pre-filled — hit send there to reach us."
+    "demo": {
+      "title": "Request a Demo",
+      "subtitle": "See your site mapped — a free demo, no obligation.",
+      "form": {
+        "name_label": "Name",
+        "email_label": "Email",
+        "company_label": "Company",
+        "industry_label": "Industry",
+        "industry_placeholder": "Select one",
+        "industry_options": ["Surveying/Geomatics", "Construction", "Facility Management", "Architecture/Engineering", "Other"],
+        "use_case_label": "What are you mapping?",
+        "use_case_placeholder": "Select one",
+        "use_case_options": ["Indoor", "Outdoor", "Both / not sure"],
+        "message_label": "Anything else? (optional)",
+        "message_placeholder": "Tell us a bit more about the site.",
+        "submit": "Request a Demo",
+        "success": "Thanks — we'll follow up shortly to schedule your demo.",
+        "error": "Something went wrong sending that. Email us directly at hello@korit.ai instead."
+      }
+    },
+    "general": {
+      "title": "General Inquiry",
+      "form": {
+        "name_label": "Name",
+        "email_label": "Email",
+        "message_label": "Message",
+        "message_placeholder": "What are you mapping, and what's not working today?",
+        "submit": "Send message",
+        "success": "Thanks — we'll get back to you shortly.",
+        "error": "Something went wrong sending that. Email us directly at hello@korit.ai instead."
+      }
     }
   },
   "portal": {
@@ -134,7 +159,8 @@
     "form": {
       "email_label": "Email",
       "submit": "Notify me",
-      "success": "Your email client should open — send it and we'll add you to the list."
+      "success": "You're on the list — we'll email you when the portal opens.",
+      "error": "Something went wrong sending that. Email us directly at hello@korit.ai instead."
     },
     "back_link": "← Back to home"
   },

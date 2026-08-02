@@ -1,0 +1,172 @@
+---
+// Google Form-backed, see src/lib/leadForm.ts and
+// kb/project/specs/lead-capture-demo-analytics.md for the backend/analytics wiring.
+interface Props {
+  form: {
+    name_label: string;
+    email_label: string;
+    company_label: string;
+    industry_label: string;
+    industry_placeholder: string;
+    industry_options: string[];
+    use_case_label: string;
+    use_case_placeholder: string;
+    use_case_options: string[];
+    message_label: string;
+    message_placeholder: string;
+    submit: string;
+    success: string;
+    error: string;
+  };
+}
+
+const { form } = Astro.props;
+---
+
+<form class="reveal demo-form" data-success={form.success} data-error={form.error}>
+  <div class="field">
+    <label for="dname">{form.name_label}</label>
+    <input id="dname" name="name" type="text" required />
+  </div>
+  <div class="field">
+    <label for="demail">{form.email_label}</label>
+    <input id="demail" name="email" type="email" required />
+  </div>
+  <div class="field">
+    <label for="dcompany">{form.company_label}</label>
+    <input id="dcompany" name="company" type="text" required />
+  </div>
+  <div class="field-row">
+    <div class="field">
+      <label for="dindustry">{form.industry_label}</label>
+      <select id="dindustry" name="industry" required>
+        <option value="" selected disabled>{form.industry_placeholder}</option>
+        {form.industry_options.map((option) => <option value={option}>{option}</option>)}
+      </select>
+    </div>
+    <div class="field">
+      <label for="duseCase">{form.use_case_label}</label>
+      <select id="duseCase" name="useCase" required>
+        <option value="" selected disabled>{form.use_case_placeholder}</option>
+        {form.use_case_options.map((option) => <option value={option}>{option}</option>)}
+      </select>
+    </div>
+  </div>
+  <div class="field">
+    <label for="dmessage">{form.message_label}</label>
+    <textarea id="dmessage" name="message" placeholder={form.message_placeholder}></textarea>
+  </div>
+  <div class="submit-row">
+    <button type="submit" class="btn btn-primary">{form.submit}</button>
+    <p class="form-status" role="status" aria-live="polite"></p>
+  </div>
+</form>
+
+<style>
+  .demo-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .field-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .field-row .field {
+    flex: 1;
+    min-width: 180px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  label {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--fog-dark);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  input,
+  select,
+  textarea {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--paper-line);
+    border-radius: 4px;
+    padding: 12px 14px;
+    resize: vertical;
+  }
+
+  textarea {
+    min-height: 80px;
+  }
+
+  .submit-row {
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .submit-row .btn {
+    border: none;
+  }
+
+  .form-status {
+    font-size: 13.5px;
+    color: var(--navy);
+  }
+
+  .form-status[data-state='err'] {
+    color: #b0432c;
+  }
+</style>
+
+<script>
+  import { submitLead } from '../lib/leadForm';
+  import { trackEvent } from '../lib/analytics';
+
+  document.querySelectorAll<HTMLFormElement>('.demo-form').forEach((form) => {
+    const status = form.querySelector<HTMLParagraphElement>('.form-status');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      submitButton?.setAttribute('disabled', 'true');
+
+      const name = form.querySelector<HTMLInputElement>('#dname')?.value ?? '';
+      const email = form.querySelector<HTMLInputElement>('#demail')?.value ?? '';
+      const company = form.querySelector<HTMLInputElement>('#dcompany')?.value ?? '';
+      const industry = form.querySelector<HTMLSelectElement>('#dindustry')?.value ?? '';
+      const useCase = form.querySelector<HTMLSelectElement>('#duseCase')?.value ?? '';
+      const message = form.querySelector<HTMLTextAreaElement>('#dmessage')?.value ?? '';
+
+      try {
+        await submitLead({ name, email, company, industry, useCase, message }, 'Demo Request');
+        trackEvent('demo_request_submitted');
+        if (status) {
+          status.textContent = form.dataset.success ?? '';
+          status.dataset.state = 'ok';
+        }
+        form.reset();
+      } catch {
+        if (status) {
+          status.textContent = form.dataset.error ?? '';
+          status.dataset.state = 'err';
+        }
+      } finally {
+        submitButton?.removeAttribute('disabled');
+      }
+    });
+  });
+</script>

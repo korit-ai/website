@@ -5,7 +5,7 @@
 | Path | Purpose | Content source |
 |---|---|---|
 | `/` | Static redirect to `/en/` | `astro.config.mjs` `redirects` |
-| `/en/` | Single-page marketing site: Hero, Problem, Product, Focus Areas, About, Contact | `src/data/en.json` |
+| `/en/` | Single-page marketing site: Hero, Problem, Product, Focus Areas, About, Contact (Request a Demo + General Inquiry panels) | `src/data/en.json` |
 | `/en/portal` | Customer portal stub — explains the future capability, email-capture "notify me" | `src/data/en.json` (`portal` key) |
 
 Content owner: not yet assigned — flag for whoever owns marketing copy once
@@ -27,3 +27,11 @@ the site is live.
   SVG for link previews).
 - `public/favicon.svg` is a simple placeholder derived from the header logo
   mark, not a designed asset.
+- `src/lib/leadForm.ts` (`GOOGLE_FORM_ACTION`, `FIELD_ENTRIES`) and
+  `src/lib/analytics.ts` (`GOATCOUNTER_SITE`) hold placeholder values — forms
+  and analytics are fully wired but inert until the real Google Form and
+  GoatCounter site exist. See `implementation-plan.md` Open Items and
+  `specs/lead-capture-demo-analytics.md`.
+- Demo-CTA copy (`hero.cta_primary`, `product.demo_cta`, `contact.demo.*` in
+  `en.json`) is a first draft per the spec's own request for team review, not
+  yet approved.

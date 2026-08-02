@@ -15,7 +15,9 @@ convention — see
 |---|---|---|
 | Site generator | Astro | Native i18n routing, near-zero JS by default, deploys cleanly to GitHub Pages |
 | Styling | Plain CSS, custom properties | Design tokens carried over from the mockup; no framework needed at this scale |
-| Contact form | `mailto:` link composed client-side | Zero account setup, works immediately; no lead persistence or spam filtering — see Open Items to upgrade later |
+| Lead capture | Google Form (existing Workspace) + custom-styled UI, `no-cors` POST | Replaces the earlier `mailto:` approach — see [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md) |
+| Demo vs. general contact | Split into two distinct CTAs/forms, same backend | Qualifying demo CTA reads as more credible pre-M3-campaign, gives free segmentation data |
+| Analytics | GoatCounter, added before demo-campaign traffic | Cookieless, no consent banner, supports custom events (demo/contact/portal submissions) |
 | Languages at launch | English only | Turkish deferred to its own pass so unreviewed machine translation never ships; i18n routing is built now so `tr/` is a low-effort add later |
 | Domain | `korit.ai` (`public/CNAME`) | Confirmed |
 | Portal | `/en/portal` stub only, this repo | Full customer portal is a future, separate repo (`korit-portal`) — see Phase 2 below |
@@ -32,12 +34,13 @@ convention — see
   add `tr` to the `locales` array, add `src/pages/tr/*.astro` mirroring
   `en/*.astro`. No component changes needed — every component reads copy from
   the locale JSON, none hardcode English strings.
-- **Contact form and portal "notify me" form compose a `mailto:` link on
-  submit** instead of posting to Formspree — no form-backend account needed,
-  works the moment the site is live. Trade-off: relies on the visitor having
-  a configured email client, and there's no captured lead list or spam
-  filtering. Swap for Formspree (or a Google Form, given the existing
-  Workspace) later if that becomes a problem — see Open Items.
+- **Contact, demo-request, and portal forms originally composed a `mailto:`
+  link on submit** (zero backend). Superseded once the M3 demo-campaign
+  requirement landed — see
+  [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md).
+  They now POST to a Google Form (`src/lib/leadForm.ts`), which requires a
+  real form + entry-ID mapping before submissions actually land anywhere —
+  see Open Items.
 - **Inline `onclick` handlers from the mockup were replaced** with a small
   script in `Header.astro` (mobile nav toggle) and the reveal-on-scroll
   `IntersectionObserver` in `BaseLayout.astro`. Same behavior, but avoids
@@ -50,6 +53,13 @@ convention — see
 - **OG image is a placeholder SVG** (`public/og-image-placeholder.svg`), not
   wired into meta tags yet — most social platforms need a real raster image
   (PNG/JPG, 1200×630). See Open Items.
+- **`src/lib/leadForm.ts` and `src/lib/analytics.ts` ship with placeholder
+  values** (`YOUR_FORM_ID`/fake `entry.*` IDs, `YOUR_SITE_CODE`) — the site
+  builds and the forms/tracking script are fully wired, but submissions and
+  events go nowhere real until the human prerequisites in
+  [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md)
+  are done and the real values are dropped in. Same pattern as the earlier
+  domain/CNAME placeholders — build the whole feature now, swap config later.
 
 ## Tech stack
 
@@ -57,7 +67,10 @@ convention — see
 - **Styling:** `src/styles/global.css` — design tokens as CSS custom properties.
 - **Content:** `src/data/{locale}.json`, flat key-value copy strings —
   never hardcode text inside `.astro` components.
-- **Forms:** client-side `mailto:` composition, no backend (see Decisions above).
+- **Forms:** Google Form backend via `src/lib/leadForm.ts` (placeholder config —
+  see Deviations and Open Items).
+- **Analytics:** GoatCounter via `src/lib/analytics.ts`, script tag in
+  `BaseLayout.astro` (placeholder site code).
 - **CI/CD:** GitHub Actions → GitHub Pages (`actions/deploy-pages`).
 - **Fonts:** Space Grotesk (display), Inter (body), JetBrains Mono (data/labels),
   via Google Fonts.
@@ -81,9 +94,13 @@ website/
 │   │   ├── ScanGraphic.astro
 │   │   ├── FocusCard.astro
 │   │   ├── FormFactorCard.astro
-│   │   └── ContactForm.astro
+│   │   ├── ContactForm.astro      # "General Inquiry" panel
+│   │   └── DemoRequestForm.astro  # "Request a Demo" panel
 │   ├── layouts/
 │   │   └── BaseLayout.astro
+│   ├── lib/
+│   │   ├── leadForm.ts            # Google Form config + submitLead()
+│   │   └── analytics.ts           # GoatCounter config + trackEvent()
 │   ├── pages/
 │   │   └── en/
 │   │       ├── index.astro
@@ -104,15 +121,18 @@ website/
 3. Product — sensor platform concept, four form-factor cards, "in development" note
 4. Focus Areas — exploratory use-case areas
 5. About — Founder / Partner background cards
-6. Contact — email + `mailto:`-composing form
+6. Contact — email, plus two panels: "Request a Demo" (qualifying form —
+   name, email, company, industry, use case, optional message) and "General
+   Inquiry" (name, email, message). Both post to the same Google Form; the
+   Hero primary CTA and a Product-section CTA both deep-link to `#demo`.
 7. Nav/Footer — includes a "Customer Portal" link → `/en/portal`
 
 ## Portal entry point (this repo, stub only)
 
 `src/pages/en/portal.astro`:
 - Explains the future capability in plain terms.
-- Email-capture "notify me" form (`mailto:` composition, same as the contact
-  form), no working login.
+- Email-capture "notify me" form, same Google Form backend as the contact/demo
+  forms (`Inquiry Type: "Portal Interest"`), no working login.
 - Linked from header nav and footer.
 
 ## Phase 2 (future, separate repo): Customer Portal
@@ -158,7 +178,7 @@ JSON (GitHub/Firebase secret, never in-repo), OAuth client ID.
 1. ~~Scaffold~~ — Astro project, folder structure, design tokens, fonts.
 2. ~~Port content~~ — mockup sections rebuilt as Astro components, English
    copy in `en.json`.
-3. ~~Contact form~~ — `mailto:`-composing forms, no backend needed.
+3. ~~Contact form~~ — originally `mailto:`-composing forms, no backend needed.
 4. Deploy — GitHub Actions pipeline live, custom domain verified over HTTPS.
    DNS/domain provider: Namecheap (registrar) + Google Workspace (mail).
    GitHub Pages needs 4 `A` records (and optionally `AAAA`) added at
@@ -167,11 +187,13 @@ JSON (GitHub/Firebase secret, never in-repo), OAuth client ID.
 5. i18n — Turkish locale added (`tr.json`, `LanguageSwitcher`, `tr/` pages),
    native-speaker review before it's public.
 6. Assets — real favicon/OG image, replacing placeholders.
-7. (Optional, later) Real lead capture — swap the `mailto:` forms for
-   Formspree or a Google Form if losing submissions to unconfigured email
-   clients, or needing a captured list/spam filtering, becomes a problem.
-   Spec ready for implementation:
-   [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md).
+7. ~~Real lead capture, demo CTA, analytics~~ — implemented per
+   [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md):
+   Google-Form-backed `DemoRequestForm` + reworked `ContactForm`, Hero/Product
+   CTAs deep-linking to `#demo`, GoatCounter analytics with per-form custom
+   events. Code is done; the human prerequisites in that spec (real Google
+   Form + entry IDs, real GoatCounter site code, demo-copy approval) are
+   still outstanding — see Open Items.
 
 ## Open items
 
@@ -186,6 +208,13 @@ JSON (GitHub/Firebase secret, never in-repo), OAuth client ID.
 - [ ] Replace `public/og-image-placeholder.svg` with a real 1200×630 PNG/JPG,
       and `public/favicon.svg` with a designed mark if the placeholder isn't
       good enough.
-- [ ] Revisit the `mailto:` contact/portal forms once there's appetite for a
-      real backend — see milestone 7 and
-      [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md).
+- [ ] Create the Google Form + linked Sheet, pull `entry.*` field IDs, hand
+      off the `formResponse` URL — replace the placeholders in
+      `src/lib/leadForm.ts`. See
+      [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md) §1.
+- [ ] Sign up for GoatCounter (or confirm Cloudflare Web Analytics instead),
+      hand off the site code — replace the placeholder in `src/lib/analytics.ts`.
+      See [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md) §3.
+- [ ] Approve or edit the demo-CTA copy in `src/data/en.json`
+      (`hero.cta_primary`, `product.demo_cta`, `contact.demo.*`) — current
+      copy is a first draft, not yet reviewed by the team.
