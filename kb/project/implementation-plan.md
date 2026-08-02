@@ -53,13 +53,17 @@ convention — see
 - **OG image is a placeholder SVG** (`public/og-image-placeholder.svg`), not
   wired into meta tags yet — most social platforms need a real raster image
   (PNG/JPG, 1200×630). See Open Items.
-- **`src/lib/leadForm.ts` and `src/lib/analytics.ts` ship with placeholder
-  values** (`YOUR_FORM_ID`/fake `entry.*` IDs, `YOUR_SITE_CODE`) — the site
-  builds and the forms/tracking script are fully wired, but submissions and
-  events go nowhere real until the human prerequisites in
-  [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md)
-  are done and the real values are dropped in. Same pattern as the earlier
-  domain/CNAME placeholders — build the whole feature now, swap config later.
+- **`src/lib/leadForm.ts` is wired to the real "korit.ai — Website Leads"
+  Google Form** (2026-08-02) — `GOOGLE_FORM_ACTION` and `FIELD_ENTRIES` hold
+  real values, verified with a live end-to-end test submission (confirmed
+  landing in the linked Sheet). One gotcha hit along the way: the form
+  silently 401'd on submissions until it was explicitly **Published** — newly
+  created Google Forms aren't live until you click Publish, separate from
+  "responses are being collected." If a form ever stops accepting
+  submissions, check that first.
+- **`src/lib/analytics.ts` still ships with a placeholder `GOATCOUNTER_SITE`**
+  — the tracking script is wired but inert until a real GoatCounter site
+  exists. Same placeholder-first pattern as before — see Open Items.
 
 ## Tech stack
 
@@ -191,9 +195,9 @@ JSON (GitHub/Firebase secret, never in-repo), OAuth client ID.
    [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md):
    Google-Form-backed `DemoRequestForm` + reworked `ContactForm`, Hero/Product
    CTAs deep-linking to `#demo`, GoatCounter analytics with per-form custom
-   events. Code is done; the human prerequisites in that spec (real Google
-   Form + entry IDs, real GoatCounter site code, demo-copy approval) are
-   still outstanding — see Open Items.
+   events. Lead capture is fully live (real Google Form, verified with an
+   end-to-end test submission). Still outstanding: real GoatCounter site
+   code, demo-copy approval — see Open Items.
 
 ## Open items
 
@@ -208,9 +212,9 @@ JSON (GitHub/Firebase secret, never in-repo), OAuth client ID.
 - [ ] Replace `public/og-image-placeholder.svg` with a real 1200×630 PNG/JPG,
       and `public/favicon.svg` with a designed mark if the placeholder isn't
       good enough.
-- [ ] Create the Google Form + linked Sheet, pull `entry.*` field IDs, hand
-      off the `formResponse` URL — replace the placeholders in
-      `src/lib/leadForm.ts`. See
+- [x] ~~Create the Google Form + linked Sheet, pull `entry.*` field IDs, hand
+      off the `formResponse` URL~~ — done 2026-08-02, `src/lib/leadForm.ts`
+      has real values, verified live. See
       [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md) §1.
 - [ ] Sign up for GoatCounter (or confirm Cloudflare Web Analytics instead),
       hand off the site code — replace the placeholder in `src/lib/analytics.ts`.

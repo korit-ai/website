@@ -1,19 +1,17 @@
 // Google Form lead-capture backend — see kb/project/specs/lead-capture-demo-analytics.md
-//
-// TODO: GOOGLE_FORM_ACTION and FIELD_ENTRIES are placeholders. Replace once the human
-// prerequisite in that spec is done: create the Google Form + linked Sheet, open its
-// pre-fill link, and pull the real `entry.XXXXXXXXX` field IDs out of the URL.
+// Form: "korit.ai — Website Leads", responses linked to a Google Sheet.
 
-export const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
+export const GOOGLE_FORM_ACTION =
+  'https://docs.google.com/forms/d/e/1FAIpQLSePk-mXw1wd2ntwau1p6LhXHl_ZsmtANPSnhtfg1KPbWZR77A/formResponse';
 
 export const FIELD_ENTRIES = {
-  inquiryType: 'entry.100000001',
-  name: 'entry.100000002',
-  email: 'entry.100000003',
-  company: 'entry.100000004',
-  industry: 'entry.100000005',
-  useCase: 'entry.100000006',
-  message: 'entry.100000007',
+  inquiryType: 'entry.1021872387',
+  name: 'entry.1462807722',
+  email: 'entry.897592785',
+  company: 'entry.1586722240',
+  industry: 'entry.237054301',
+  useCase: 'entry.2134887144',
+  message: 'entry.725415955',
 } as const;
 
 export type LeadField = keyof typeof FIELD_ENTRIES;

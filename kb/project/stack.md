@@ -13,13 +13,16 @@
   build warning if reused for plain data) + `src/i18n/content.ts`
   (`getContent(locale)`). Components never hardcode copy — see
   `content-inventory.md`.
-- **Forms:** Google Form backend, POSTed to with `fetch(..., {mode:'no-cors'})`.
-  Config (`formResponse` URL, `entry.*` field IDs) lives in one place,
-  `src/lib/leadForm.ts`, currently placeholder values — see Open Items in
-  `implementation-plan.md`. Three forms share it: `DemoRequestForm.astro`
-  ("Request a Demo"), `ContactForm.astro` ("General Inquiry"), and the
-  `/en/portal` notify-me form — each tags its submission with a distinct
-  `Inquiry Type` value.
+- **Forms:** Google Form backend ("korit.ai — Website Leads", linked to a
+  Sheet), POSTed to with `fetch(..., {mode:'no-cors'})`. Config
+  (`formResponse` URL, `entry.*` field IDs) lives in one place,
+  `src/lib/leadForm.ts` — real values, live and verified 2026-08-02. Three
+  forms share it: `DemoRequestForm.astro` ("Request a Demo"),
+  `ContactForm.astro` ("General Inquiry"), and the `/en/portal` notify-me
+  form — each tags its submission with a distinct `Inquiry Type` value. Note:
+  a newly created Google Form isn't live until explicitly **Published**
+  (separate from turning on response collection) — an unpublished form 401s
+  on submission.
 - **Analytics:** GoatCounter, cookieless/no consent banner. Script tag in
   `BaseLayout.astro`, custom events fired per form via `src/lib/analytics.ts`'s
   `trackEvent()`. Site code is a placeholder — see Open Items.
