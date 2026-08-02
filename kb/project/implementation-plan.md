@@ -170,6 +170,8 @@ JSON (GitHub/Firebase secret, never in-repo), OAuth client ID.
 7. (Optional, later) Real lead capture — swap the `mailto:` forms for
    Formspree or a Google Form if losing submissions to unconfigured email
    clients, or needing a captured list/spam filtering, becomes a problem.
+   Spec ready for implementation:
+   [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md).
 
 ## Open items
 
@@ -185,4 +187,5 @@ JSON (GitHub/Firebase secret, never in-repo), OAuth client ID.
       and `public/favicon.svg` with a designed mark if the placeholder isn't
       good enough.
 - [ ] Revisit the `mailto:` contact/portal forms once there's appetite for a
-      real backend (Formspree, Google Form) — see milestone 7.
+      real backend — see milestone 7 and
+      [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md).
