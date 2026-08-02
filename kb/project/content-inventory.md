@@ -27,9 +27,7 @@ the site is live.
   SVG for link previews).
 - `public/favicon.svg` is a simple placeholder derived from the header logo
   mark, not a designed asset.
-- Lead capture (`src/lib/leadForm.ts`) and analytics (`src/lib/analytics.ts`)
-  are both done — real Google Form and GoatCounter site, live and verified.
-  See `specs/lead-capture-demo-analytics.md`.
-- Demo-CTA copy (`hero.cta_primary`, `product.demo_cta`, `contact.demo.*` in
-  `en.json`) is a first draft per the spec's own request for team review, not
-  yet approved.
+
+Lead capture, analytics, and demo-CTA copy (per
+`specs/lead-capture-demo-analytics.md`) are all done as of 2026-08-02 — no
+longer placeholders, removed from this list.

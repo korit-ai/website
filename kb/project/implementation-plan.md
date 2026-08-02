@@ -195,9 +195,8 @@ JSON (GitHub/Firebase secret, never in-repo), OAuth client ID.
    [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md):
    Google-Form-backed `DemoRequestForm` + reworked `ContactForm`, Hero/Product
    CTAs deep-linking to `#demo`, GoatCounter analytics with per-form custom
-   events. Lead capture and analytics are both fully live (real Google Form
-   and GoatCounter site, both verified). Still outstanding: demo-copy
-   approval — see Open Items.
+   events. Fully live and complete: real Google Form and GoatCounter site
+   both verified, demo-CTA copy reviewed and approved 2026-08-02.
 
 ## Open items
 
@@ -219,6 +218,6 @@ JSON (GitHub/Firebase secret, never in-repo), OAuth client ID.
 - [x] ~~Sign up for GoatCounter, hand off the site code~~ — done 2026-08-02,
       `src/lib/analytics.ts` has `GOATCOUNTER_SITE = 'korit'`, verified live.
       See [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md) §3.
-- [ ] Approve or edit the demo-CTA copy in `src/data/en.json`
-      (`hero.cta_primary`, `product.demo_cta`, `contact.demo.*`) — current
-      copy is a first draft, not yet reviewed by the team.
+- [x] ~~Approve or edit the demo-CTA copy in `src/data/en.json`~~ — reviewed
+      and approved as-is 2026-08-02 (`hero.cta_primary`, `product.demo_cta`,
+      `contact.demo.*`, `contact.general.title`). No longer a "first draft."
