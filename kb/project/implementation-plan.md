@@ -61,9 +61,9 @@ convention — see
   created Google Forms aren't live until you click Publish, separate from
   "responses are being collected." If a form ever stops accepting
   submissions, check that first.
-- **`src/lib/analytics.ts` still ships with a placeholder `GOATCOUNTER_SITE`**
-  — the tracking script is wired but inert until a real GoatCounter site
-  exists. Same placeholder-first pattern as before — see Open Items.
+- **`src/lib/analytics.ts` is wired to the real GoatCounter site**
+  (2026-08-02) — `GOATCOUNTER_SITE = 'korit'`
+  (`https://korit.goatcounter.com`), verified the count endpoint responds.
 
 ## Tech stack
 
@@ -195,9 +195,9 @@ JSON (GitHub/Firebase secret, never in-repo), OAuth client ID.
    [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md):
    Google-Form-backed `DemoRequestForm` + reworked `ContactForm`, Hero/Product
    CTAs deep-linking to `#demo`, GoatCounter analytics with per-form custom
-   events. Lead capture is fully live (real Google Form, verified with an
-   end-to-end test submission). Still outstanding: real GoatCounter site
-   code, demo-copy approval — see Open Items.
+   events. Lead capture and analytics are both fully live (real Google Form
+   and GoatCounter site, both verified). Still outstanding: demo-copy
+   approval — see Open Items.
 
 ## Open items
 
@@ -216,8 +216,8 @@ JSON (GitHub/Firebase secret, never in-repo), OAuth client ID.
       off the `formResponse` URL~~ — done 2026-08-02, `src/lib/leadForm.ts`
       has real values, verified live. See
       [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md) §1.
-- [ ] Sign up for GoatCounter (or confirm Cloudflare Web Analytics instead),
-      hand off the site code — replace the placeholder in `src/lib/analytics.ts`.
+- [x] ~~Sign up for GoatCounter, hand off the site code~~ — done 2026-08-02,
+      `src/lib/analytics.ts` has `GOATCOUNTER_SITE = 'korit'`, verified live.
       See [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md) §3.
 - [ ] Approve or edit the demo-CTA copy in `src/data/en.json`
       (`hero.cta_primary`, `product.demo_cta`, `contact.demo.*`) — current

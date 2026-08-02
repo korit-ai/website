@@ -27,10 +27,9 @@ the site is live.
   SVG for link previews).
 - `public/favicon.svg` is a simple placeholder derived from the header logo
   mark, not a designed asset.
-- `src/lib/analytics.ts` (`GOATCOUNTER_SITE`) still holds a placeholder value
-  — tracking script is wired but inert until a real GoatCounter site exists.
-  `src/lib/leadForm.ts` is done — real Google Form, live and verified. See
-  `implementation-plan.md` Open Items and `specs/lead-capture-demo-analytics.md`.
+- Lead capture (`src/lib/leadForm.ts`) and analytics (`src/lib/analytics.ts`)
+  are both done — real Google Form and GoatCounter site, live and verified.
+  See `specs/lead-capture-demo-analytics.md`.
 - Demo-CTA copy (`hero.cta_primary`, `product.demo_cta`, `contact.demo.*` in
   `en.json`) is a first draft per the spec's own request for team review, not
   yet approved.

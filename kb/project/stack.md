@@ -23,9 +23,9 @@
   a newly created Google Form isn't live until explicitly **Published**
   (separate from turning on response collection) — an unpublished form 401s
   on submission.
-- **Analytics:** GoatCounter, cookieless/no consent banner. Script tag in
-  `BaseLayout.astro`, custom events fired per form via `src/lib/analytics.ts`'s
-  `trackEvent()`. Site code is a placeholder — see Open Items.
+- **Analytics:** GoatCounter (`korit.goatcounter.com`), cookieless/no consent
+  banner. Script tag in `BaseLayout.astro`, custom events fired per form via
+  `src/lib/analytics.ts`'s `trackEvent()`. Live and verified.
 - **Sitemap:** `@astrojs/sitemap`, generated at build time from `site:` in
   `astro.config.mjs`.
 - **Hosting:** GitHub Pages, custom domain `korit.ai` via `public/CNAME`.
