@@ -17,10 +17,37 @@ you don't need and shouldn't read other project repos.
    your work here; `03-business` only matters if the task explicitly touches
    messaging, positioning, or public-facing claims — don't load it otherwise.
 
+## Content workflow — English + Turkish together
+
+The site ships two locales (`en`, `tr`) and both are live, not draft — see
+`kb/project/implementation-plan.md`'s i18n section. Whenever you add or
+change English user-facing copy (a new page, new component text, or an edit
+to `src/data/en.json`), don't consider the work done until the Turkish side
+is updated too:
+
+1. Finalize the English copy first (`src/data/en.json` or wherever it lives).
+2. Hand the new/changed strings to the `translator` agent and get back the
+   Turkish equivalents — don't translate it yourself inline, that's its job.
+3. Write what it returns into `src/data/tr.json` under the same keys (and
+   into a new `src/pages/tr/*.astro` page if you added a new English page —
+   mirror the existing `en/`/`tr/` pairing).
+4. Build both locales (`astro check && astro build`) before shipping.
+
+This isn't gated on a human review of the Turkish text before it goes live —
+translation is automatic, supervision is reactive (fix what gets flagged
+after the fact). But it is gated on Turkish existing at all: don't ship
+English-only content and leave `tr.json` out of sync — that's the failure
+mode this workflow exists to prevent. If `translator` flags a structural
+mismatch between the two locale files, resolve it as part of the same
+change rather than leaving it for later.
+
 ## Guardrails
 
 - KB and convention changes belong in `korit-meta`, not here — if a task
   turns out to be about conventions rather than the website itself, say so
   rather than improvising a local copy of global content.
-- Normal branch → commit → PR flow per
-  `../korit-meta/kb/global/01-conventions/git-and-pr-conventions.md`.
+- Commit and push directly to `main` — Reza has twice confirmed this
+  overrides `../korit-meta/kb/global/01-conventions/git-and-pr-conventions.md`'s
+  default PR-per-change rule for this repo specifically (single founder, no
+  team reviewing PRs yet; the gate is pure overhead at this stage). Don't
+  propose reinstating a PR flow unprompted.
