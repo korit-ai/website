@@ -9,7 +9,7 @@ export default defineConfig({
   },
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'], // add 'tr' here once src/content/tr.json + src/pages/tr/* exist
+    locales: ['en', 'tr'],
     routing: {
       prefixDefaultLocale: true,
       // We handle "/" -> "/en/" ourselves via the `redirects` key above,

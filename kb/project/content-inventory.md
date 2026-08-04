@@ -14,11 +14,12 @@ the site is live.
 ## Locales
 
 - `en` — live, source of truth for all copy.
-- `tr` — not started. When it starts: add `src/data/tr.json` mirroring
-  `en.json`'s keys, add `'tr'` to `astro.config.mjs`'s `i18n.locales`, add
-  `src/pages/tr/index.astro` + `portal.astro`, build `LanguageSwitcher.astro`.
-  Machine-translate first pass is fine but needs native-speaker review before
-  it's public — see `implementation-plan.md`.
+- `tr` — live as of 2026-08-05, machine-translated (`src/data/tr.json`),
+  published without a pre-publish native-speaker review — Reza's explicit
+  call, supervision is reactive (fix what's flagged as wrong) rather than a
+  gate before shipping. See `implementation-plan.md` Deviations for why this
+  overrides the earlier "review before public" plan, and flag anything that
+  reads wrong if you spot it.
 
 ## Known placeholders (must resolve before public launch)
 

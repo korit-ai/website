@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "title": "korit.ai — Haritalama, GPS'in durduğu yerde durmuyor",
+    "description": "korit.ai, otomotiv sınıfı sensör füzyonunu açık sokaktan GPS sinyali almayan iç mekanlara taşıyan 3D haritalama donanımları geliştiriyor."
+  },
+  "nav": {
+    "product": "Ürün",
+    "focus": "Odak Alanları",
+    "about": "Hakkımızda",
+    "contact": "İletişim",
+    "portal": "Müşteri Portalı",
+    "cta": "Bize ulaşın"
+  },
+  "hero": {
+    "eyebrow": "Dış Mekan → İç Mekan · SLAM Haritalama",
+    "headline_pre": "Haritalama, ",
+    "headline_em": "GPS",
+    "headline_post": "'in durduğu yerde durmuyor.",
+    "lead": "korit.ai; LiDAR, kamera, IMU ve GNSS/INS'den oluşan otomotiv sınıfı sensör füzyonunu açık sokaktan GPS sinyali almayan iç mekanlara, kapıda doğruluk kaybetmeden taşıyan 3D haritalama donanımları geliştiriyor.",
+    "cta_primary": "Demo Talep Edin",
+    "cta_secondary": "Konsepti görün",
+    "telemetry_1": "ENLEM 41.0082°K · BOYLAM 28.9784°D",
+    "telemetry_2": "TARAMA AKTİF · 4 SENSÖR BİRLEŞİYOR",
+    "baseline": {
+      "founder": { "label": "Kurucu geçmişi", "value": "Otonom SLAM, LiDAR, GNSS/INS füzyonu" },
+      "partner": { "label": "Ortak geçmişi", "value": "İnşaat ve mimarlık mühendisliği" },
+      "status": { "label": "Durum", "value": "Erken geliştirme aşaması" }
+    }
+  },
+  "problem": {
+    "eyebrow": "Sorun",
+    "headline": "Çoğu haritalama sistemi, iç mekana girer girmez doğruluğunu kaybeder.",
+    "body": "Profesyonel 3D haritalama araçları büyük ölçüde iç mekan öncelikli, GPS sinyali almayan ortamlar için tasarlanır. Bu, otonom araçların mühendislik yaklaşımının tam tersidir; orada dış mekan ve iç mekan benzeri koşullar (tüneller, otoparklar, yoğun şehir kanyonları) sert bir dikiş olmadan, kesintisiz biçimde birleştirilir. Bizce haritalama donanımı da aynı şekilde çalışmalı: sokaktan merdiven boşluğuna kadar tek, kesintisiz bir iz.",
+    "chart": {
+      "axis_high": "yüksek",
+      "axis_low": "düşük",
+      "axis_door": "kapı",
+      "axis_outdoor": "dış mekan",
+      "axis_indoor": "iç mekan",
+      "legend_typical": "Tipik iç mekan öncelikli sistemler",
+      "legend_continuous": "Kesintisiz dış–iç mekan füzyonu"
+    }
+  },
+  "product": {
+    "eyebrow": "Konsept",
+    "headline": "Tek sensör platformu, sizin istediğiniz şekilde monte edilir.",
+    "lead": "360° LiDAR, global-shutter kamera, IMU ve sıcak takılabilir bir SSD'ye yazan GNSS'ten oluşan tek bir donanım çekirdeği, bir sahanın nasıl kaydedilmesi gerektiğine bağlı olarak dört farklı fiziksel montaj arasında geçiş yapar. Ham veri cihaz dışında işlendiğinden, aynı çekirdek çok farklı iş akışlarına hizmet edebilir.",
+    "forms": [
+      {
+        "index": "01 / GİYİLEBİLİR",
+        "title": "Giyilebilir",
+        "body": "Yürüme hareketinin taramaya gürültü eklemesini önlemek için kamera-rig tasarımından uyarlanmış, stabilize bir çerçeve."
+      },
+      {
+        "index": "02 / ARAÇ",
+        "title": "Araca monte",
+        "body": "Aynı sensör çekirdeği; koridor, yol veya saha çevresi taramasını hızlı biçimde yapmak için bir araca ya da el arabasına monte edilir."
+      },
+      {
+        "index": "03 / ROBOT",
+        "title": "Robota monte",
+        "body": "Tehlikeli veya erişimi zor alanlarda tekrarlanabilir, planlı kayıt için robotik platformlara uyar."
+      },
+      {
+        "index": "04 / SABİT",
+        "title": "Sabit",
+        "body": "Tek bir konumun uzun süreli ya da öncesi/sonrası karşılaştırmalı kaydı için yerinde monte edilir."
+      }
+    ],
+    "specs": ["360° LiDAR", "Global-shutter kamera", "IMU", "GNSS/INS", "Sıcak takılabilir SSD", "Takılabilir ekran"],
+    "note": "korit.ai halen erken geliştirme aşamasındadır. Gösterilen yapılandırma mevcut tasarım yönümüzü yansıtır ve donanım ile saha testleri ilerledikçe değişecektir.",
+    "demo_cta": "Demo Talep Edin"
+  },
+  "focus": {
+    "eyebrow": "Odaklandığımız alanlar",
+    "headline": "Erken görüşmeler, henüz tamamlanmış bir liste değil.",
+    "lead": "Kesintisiz dış-iç mekan kaydının en çok nerede önem taşıdığını belirlemek için erken ortaklarımızla doğrudan çalışıyoruz. Şu anda keşfettiğimiz alanlar aşağıda — biri sizin dünyanıza benziyorsa, bugün nasıl haritaladığınızı duymak isteriz.",
+    "cards": [
+      {
+        "tag": "AEC",
+        "title": "İnşaat dokümantasyonu",
+        "body": "Bir sahayı bahçeden dördüncü kata kadar yeniden konumlandırmaya gerek kalmadan takip eden yapılan-hali (as-built) kaydı."
+      },
+      {
+        "tag": "ALTYAPI",
+        "title": "Altyapı ve tesis anketleri",
+        "body": "Karma iç/dış mekan altyapılarında (yardımcı tesisler, fabrikalar, kampüsler) kesintisiz kayıt."
+      },
+      {
+        "tag": "OPS",
+        "title": "Tesis yönetimi",
+        "body": "Değişim takibi ve alan planlaması için aynı sahanın zaman içinde tekrarlanan taramaları."
+      },
+      {
+        "tag": "MİRAS",
+        "title": "Miras ve yapılan-hali kayıtları",
+        "body": "Hem dış mekan bağlamının hem de iç mekan detayının önem taşıdığı bina ve arazilerin dokümantasyonu."
+      }
+    ]
+  },
+  "about": {
+    "eyebrow": "Hakkımızda",
+    "headline": "Dünyayı sürüş hızında haritalamış kişiler tarafından kuruldu.",
+    "cards": [
+      {
+        "role": "Kurucu — Sensör Sistemleri ve SLAM",
+        "title": "Otonom sürüşten iç mekan haritalamaya",
+        "body": "SLAM algoritmaları, LiDAR, kameralar, IMU'lar ve GNSS/INS sensörleri konusunda geçmiş; otonom araçlar için sensör senkronizasyonu ve kalibrasyonunda uygulamalı deneyim — buna ek olarak yazılım ve donanım proje yönetimi."
+      },
+      {
+        "role": "Ortak — İnşaat ve Mimarlık",
+        "title": "Donanımı gerçek sahalara dayandırmak",
+        "body": "İnşaat ve mimarlık mühendisliği geçmişi; hedef kullanım senaryoları ve bu donanımı gerçekten bir binada taşıyacak müşteriler üzerine araştırmalara öncülük ediyor."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Bize ulaşın",
+    "headline": "Haritalama probleminizi bize anlatın.",
+    "body": "İster haritalama donanımı değerlendiriyor olun, ister yukarıdaki alanlardan birinde çalışıyor olun, ister sadece ne inşa ettiğimizi merak ediyor olun — sizden haber almak isteriz.",
+    "email": "hello@korit.ai",
+    "demo": {
+      "title": "Demo Talep Edin",
+      "subtitle": "Sahanızın haritalandığını görün — ücretsiz demo, hiçbir yükümlülük yok.",
+      "form": {
+        "name_label": "Ad",
+        "email_label": "E-posta",
+        "company_label": "Şirket",
+        "industry_label": "Sektör",
+        "industry_placeholder": "Birini seçin",
+        "industry_options": ["Harita/Jeomatik Mühendisliği", "İnşaat", "Tesis Yönetimi", "Mimarlık/Mühendislik", "Diğer"],
+        "use_case_label": "Neyi haritalıyorsunuz?",
+        "use_case_placeholder": "Birini seçin",
+        "use_case_options": ["İç mekan", "Dış mekan", "İkisi de / emin değilim"],
+        "message_label": "Eklemek istediğiniz bir şey var mı? (opsiyonel)",
+        "message_placeholder": "Saha hakkında biraz daha bilgi verin.",
+        "submit": "Demo Talep Edin",
+        "success": "Teşekkürler — demonuzu planlamak için kısa süre içinde sizinle iletişime geçeceğiz.",
+        "error": "Gönderilirken bir sorun oluştu. Bunun yerine doğrudan hello@korit.ai adresinden bize e-posta gönderin."
+      }
+    },
+    "general": {
+      "title": "Genel Başvuru",
+      "form": {
+        "name_label": "Ad",
+        "email_label": "E-posta",
+        "message_label": "Mesaj",
+        "message_placeholder": "Neyi haritalıyorsunuz ve bugün neyin işe yaramadığını anlatın.",
+        "submit": "Mesaj gönder",
+        "success": "Teşekkürler — kısa süre içinde size geri döneceğiz.",
+        "error": "Gönderilirken bir sorun oluştu. Bunun yerine doğrudan hello@korit.ai adresinden bize e-posta gönderin."
+      }
+    }
+  },
+  "portal": {
+    "eyebrow": "Müşteri Portalı",
+    "headline": "Çok yakında.",
+    "body": "korit.ai müşterileri, haritalama verilerini doğrudan ekibimize işlenmek üzere yüklemek için buradan giriş yapabilecek. Henüz canlı değiliz — e-postanızı bırakın, açıldığı an size haber verelim.",
+    "form": {
+      "email_label": "E-posta",
+      "submit": "Haberdar et",
+      "success": "Listeye eklendiniz — portal açıldığında size e-posta göndereceğiz.",
+      "error": "Gönderilirken bir sorun oluştu. Bunun yerine doğrudan hello@korit.ai adresinden bize e-posta gönderin."
+    },
+    "back_link": "← Ana sayfaya dön"
+  },
+  "footer": {
+    "tagline": "3D haritalama, dış mekandan iç mekana"
+  }
+}

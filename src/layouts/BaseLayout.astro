@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import type { Locale } from '../i18n/content';
+import { locales, type Locale } from '../i18n/content';
 import { GOATCOUNTER_ENDPOINT } from '../lib/analytics';
 
 interface Props {
@@ -22,6 +22,12 @@ interface Props {
 
 const { locale, title, description, nav, footerTagline } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+function alternateURL(target: Locale) {
+  const segments = Astro.url.pathname.split('/').filter(Boolean);
+  segments[0] = target;
+  return new URL(`/${segments.join('/')}/`, Astro.site);
+}
 ---
 
 <!doctype html>
@@ -32,6 +38,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    {locales.map((loc) => <link rel="alternate" hreflang={loc} href={alternateURL(loc)} />)}
+    <link rel="alternate" hreflang="x-default" href={alternateURL('en')} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />

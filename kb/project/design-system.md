@@ -35,8 +35,10 @@ Google Fonts in `BaseLayout.astro`.
   `DemoRequestForm.astro` — the "Request a Demo" panel (adds company,
   industry, use-case). Both POST through `src/lib/leadForm.ts`'s shared
   `submitLead()` — see `stack.md`.
-- `LanguageSwitcher.astro` — **not built yet**, deferred to the `tr` locale
-  milestone (see `implementation-plan.md`).
+- `LanguageSwitcher.astro` — built 2026-08-05 (see `implementation-plan.md`).
+  Swaps the leading `/en/`/`/tr/` path segment, keeps the rest of the path
+  (e.g. `/portal`), so switching locale mid-page stays on the equivalent
+  page rather than bouncing to the locale root.
 
 ## Contact section anchors
 

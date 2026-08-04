@@ -1,0 +1,58 @@
+---
+import { locales, type Locale } from '../i18n/content';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+// Swap the leading /en/ or /tr/ segment, keep the rest of the path (e.g. /portal).
+function pathFor(target: Locale) {
+  const segments = Astro.url.pathname.split('/').filter(Boolean);
+  segments[0] = target;
+  return `/${segments.join('/')}/`;
+}
+---
+
+<div class="lang-switch">
+  {
+    locales.map((loc, i) => (
+      <>
+        {i > 0 && <span class="sep" aria-hidden="true">·</span>}
+        <a href={pathFor(loc)} aria-current={loc === locale ? 'page' : undefined}>
+          {loc.toUpperCase()}
+        </a>
+      </>
+    ))
+  }
+</div>
+
+<style>
+  .lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.03em;
+  }
+
+  .lang-switch a {
+    color: var(--fog-dark);
+  }
+
+  .lang-switch a[aria-current='page'] {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .lang-switch a:hover {
+    color: var(--ink);
+  }
+
+  .sep {
+    color: var(--fog-dark);
+    opacity: 0.5;
+  }
+</style>

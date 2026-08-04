@@ -26,14 +26,28 @@ convention — see
 
 ## Deviations from the original draft plan
 
-- **`LanguageSwitcher.astro` not built yet.** With only one locale live,
-  a switcher has nothing to switch to — it'd be dead UI. Build it when the
-  `tr` locale milestone starts.
-- **i18n routing exists, `tr/` content doesn't.** `astro.config.mjs` declares
-  only `en` as a locale for now. Adding `tr` later is: add `src/data/tr.json`,
-  add `tr` to the `locales` array, add `src/pages/tr/*.astro` mirroring
-  `en/*.astro`. No component changes needed — every component reads copy from
-  the locale JSON, none hardcode English strings.
+- **Turkish locale published without pre-publish native-speaker review,
+  2026-08-05** — the original plan (see Milestones §5 history and
+  `content-inventory.md`) was machine-translate-then-review-before-public.
+  Reza explicitly changed this: translation should be automatic and human
+  supervision reactive (fix anything that's flagged as wrong after the fact)
+  rather than a gate before shipping. `src/data/tr.json` is a full
+  machine-translation pass (by Claude Code, not a translation API) of every
+  string in `en.json`, covering the mono "telemetry" readout strings too
+  (e.g. `LAT`/`LON` → `ENLEM`/`BOYLAM`, `N`/`E` → `K`/`D`) for a fully
+  localized reading, not just the prose copy. If a Turkish speaker later
+  flags something as wrong, fix it directly in `tr.json` — no process change
+  needed, this isn't a draft state.
+- **`LanguageSwitcher.astro`** (`src/components/LanguageSwitcher.astro`) —
+  built alongside the `tr` locale rather than ahead of it, since a switcher
+  with only one locale live would've been dead UI. Wired into `Header.astro`'s
+  `.navcta`. Swaps the leading `/en/`/`/tr/` path segment via
+  `Astro.url.pathname`, preserving the rest of the path (so switching locale
+  on `/en/portal` lands on `/tr/portal`, not `/tr/`).
+- **`hreflang` alternate links added to `BaseLayout.astro`** — not in the
+  original plan, but cheap and correct once two locales exist for the same
+  page structure; loops over `locales` from `i18n/content.ts` plus an
+  `x-default` pointing at `en`.
 - **Contact, demo-request, and portal forms originally composed a `mailto:`
   link on submit** (zero backend). Superseded once the M3 demo-campaign
   requirement landed — see
@@ -114,19 +128,24 @@ website/
 │   │   ├── FocusCard.astro
 │   │   ├── FormFactorCard.astro
 │   │   ├── ContactForm.astro      # "General Inquiry" panel
-│   │   └── DemoRequestForm.astro  # "Request a Demo" panel
+│   │   ├── DemoRequestForm.astro  # "Request a Demo" panel
+│   │   └── LanguageSwitcher.astro
 │   ├── layouts/
 │   │   └── BaseLayout.astro
 │   ├── lib/
 │   │   ├── leadForm.ts            # Google Form config + submitLead()
 │   │   └── analytics.ts           # GoatCounter config + trackEvent()
 │   ├── pages/
-│   │   └── en/
+│   │   ├── en/
+│   │   │   ├── index.astro
+│   │   │   └── portal.astro       # "/" -> "/en/" is a static redirect,
+│   │   │                          # see `redirects` in astro.config.mjs
+│   │   └── tr/
 │   │       ├── index.astro
-│   │       └── portal.astro       # "/" -> "/en/" is a static redirect,
-│   │                               # see `redirects` in astro.config.mjs
+│   │       └── portal.astro
 │   ├── data/
-│   │   └── en.json
+│   │   ├── en.json
+│   │   └── tr.json
 │   └── styles/
 │       └── global.css
 ├── .github/workflows/deploy.yml
@@ -202,8 +221,10 @@ JSON (GitHub/Firebase secret, never in-repo), OAuth client ID.
    HTTPS as of 2026-08-04 (`korit.ai` resolving to GitHub Pages, serving
    200 over HTTPS). DNS/domain provider: Namecheap (registrar) + Google
    Workspace (mail).
-5. i18n — Turkish locale added (`tr.json`, `LanguageSwitcher`, `tr/` pages),
-   native-speaker review before it's public.
+5. ~~i18n~~ — Turkish locale added (`tr.json`, `LanguageSwitcher`, `tr/`
+   pages). Done 2026-08-05, published directly per Reza's decision — see
+   Deviations below (this supersedes the original "native-speaker review
+   before public" plan).
 6. ~~Assets~~ — real favicon/OG image, replacing placeholders. Done
    2026-08-05, see Deviations below.
 7. ~~Real lead capture, demo CTA, analytics~~ — implemented per
@@ -222,8 +243,9 @@ JSON (GitHub/Firebase secret, never in-repo), OAuth client ID.
       Pages restriction, Namecheap URL-redirect-record conflict).
 - [x] ~~Enable GitHub Pages~~ — done, verified 2026-08-04 (live and serving
       over HTTPS, see above).
-- [ ] Decide who does the Turkish translation (Claude Code first pass +
-      native-speaker review, or fully human-written) when that milestone starts.
+- [x] ~~Decide who does the Turkish translation~~ — resolved 2026-08-05:
+      automatic (Claude Code), published without a pre-publish review gate,
+      supervised reactively. See Deviations above.
 - [x] ~~Replace `public/og-image-placeholder.svg` with a real 1200×630
       PNG/JPG, and `public/favicon.svg` with a designed mark~~ — done
       2026-08-05, see Deviations above.
