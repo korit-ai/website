@@ -56,7 +56,8 @@ convention — see
 - **`hreflang` alternate links added to `BaseLayout.astro`** — not in the
   original plan, but cheap and correct once two locales exist for the same
   page structure; loops over `locales` from `i18n/content.ts` plus an
-  `x-default` pointing at `en`.
+  `x-default`, which points at `tr` since the default-locale switch above
+  (was `en` between the two 2026-08-05 changes, briefly).
 - **Contact, demo-request, and portal forms originally composed a `mailto:`
   link on submit** (zero backend). Superseded once the M3 demo-campaign
   requirement landed — see
@@ -125,7 +126,11 @@ website/
 ├── package.json
 ├── public/
 │   ├── favicon.svg
-│   ├── og-image-placeholder.svg   # TODO: replace with real 1200×630 PNG
+│   ├── favicon-32x32.png
+│   ├── favicon-16x16.png
+│   ├── favicon.ico
+│   ├── apple-touch-icon.png
+│   ├── og-image.png
 │   ├── robots.txt
 │   └── CNAME
 ├── src/
@@ -172,11 +177,13 @@ website/
    name, email, company, industry, use case, optional message) and "General
    Inquiry" (name, email, message). Both post to the same Google Form; the
    Hero primary CTA and a Product-section CTA both deep-link to `#demo`.
-7. Nav/Footer — includes a "Customer Portal" link → `/en/portal`
+7. Nav/Footer — includes a "Customer Portal" link → `/{locale}/portal`
+   (`/tr/portal` by default, `/en/portal` under the English prefix)
 
 ## Portal entry point (this repo, stub only)
 
-`src/pages/en/portal.astro`:
+`src/pages/tr/portal.astro` + `src/pages/en/portal.astro` (identical shape,
+per-locale copy):
 - Explains the future capability in plain terms.
 - Email-capture "notify me" form, same Google Form backend as the contact/demo
   forms (`Inquiry Type: "Portal Interest"`), no working login.
