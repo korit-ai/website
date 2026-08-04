@@ -1,7 +1,9 @@
 import en from '../data/en.json';
 import tr from '../data/tr.json';
 
-const content = { en, tr } as const;
+// tr first: it's the default locale (see astro.config.mjs) — order here
+// drives display order in LanguageSwitcher and the hreflang link list.
+const content = { tr, en } as const;
 
 export type Locale = keyof typeof content;
 

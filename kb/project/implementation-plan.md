@@ -18,14 +18,23 @@ convention — see
 | Lead capture | Google Form (existing Workspace) + custom-styled UI, `no-cors` POST | Replaces the earlier `mailto:` approach — see [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md) |
 | Demo vs. general contact | Split into two distinct CTAs/forms, same backend | Qualifying demo CTA reads as more credible pre-M3-campaign, gives free segmentation data |
 | Analytics | GoatCounter, added before demo-campaign traffic | Cookieless, no consent banner, supports custom events (demo/contact/portal submissions) |
-| Languages at launch | English only | Turkish deferred to its own pass so unreviewed machine translation never ships; i18n routing is built now so `tr/` is a low-effort add later |
+| Languages | `en` + `tr`, both live; **`tr` is the default locale** | Original "English only, Turkish deferred until reviewed" plan superseded 2026-08-05 — see Deviations below |
 | Domain | `korit.ai` (`public/CNAME`) | Confirmed |
-| Portal | `/en/portal` stub only, this repo | Full customer portal is a future, separate repo (`korit-portal`) — see Phase 2 below |
+| Portal | `/tr/portal` (default) and `/en/portal` stub, this repo | Full customer portal is a future, separate repo (`korit-portal`) — see Phase 2 below |
 | Repo split | `website` (this repo) + future `korit-portal` | Different hosting targets and lifecycles |
 | Hosting | GitHub Pages via GitHub Actions on push to `main` | Already decided |
 
 ## Deviations from the original draft plan
 
+- **`tr` made the default locale, 2026-08-05** — Reza's explicit call.
+  `astro.config.mjs`: `i18n.defaultLocale` is `tr`, and `redirects['/']` now
+  points at `/tr/` instead of `/en/`. `BaseLayout.astro`'s `hreflang="x-default"`
+  now points at the `tr` URL to match. `src/i18n/content.ts`'s `content`
+  object is ordered `{ tr, en }` (not just `{ en, tr }`) since its key order
+  drives `LanguageSwitcher`'s display order and the `hreflang` link order —
+  cosmetic, but worth keeping consistent with which locale is actually
+  default. `/en/` is unaffected and still fully live at its own prefix; this
+  only changes what a bare `https://korit.ai/` visit resolves to.
 - **Turkish locale published without pre-publish native-speaker review,
   2026-08-05** — the original plan (see Milestones §5 history and
   `content-inventory.md`) was machine-translate-then-review-before-public.
