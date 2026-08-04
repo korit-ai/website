@@ -60,14 +60,40 @@ convention — see
     (no new content invented) and `hello@korit.ai`. `logo` points at
     `apple-touch-icon.png` (the mark) rather than `og-image.png` (a banner,
     not a logo).
-  - **Not done as part of this pass, flagged instead**: `npm audit` reports
-    a high-severity transitive vuln in `sharp` (libvips CVEs) and a moderate
-    dev-server request-forgery issue in esbuild/vite — fixing requires
-    bumping Astro three major versions (4.16 → 7.x), a real breaking-change
-    upgrade that needs its own dedicated testing pass, not bundled into this
-    one. The site has zero `<img>` tags (all graphics are inline SVG), so
-    the vulnerable `sharp` code path is likely dormant, not actively
-    exploitable — lowers urgency but doesn't remove the item.
+  - **Astro 4.16 → 7.1.6 upgrade, done 2026-08-05 on `chore/astro-v7-upgrade`,
+    merged to `main` after manual verification** — resolves the `sharp`/esbuild
+    `npm audit` findings above (`npm audit` now reports 0 vulnerabilities).
+    Also bumped `@astrojs/sitemap` (3.2.1→3.7.3), `@astrojs/check` (0.9.4→0.9.10),
+    and `typescript` — pinned at `6.0.3`, **not** the `7.0.2` that `npm outdated`
+    calls "latest", since `@astrojs/check`'s peer range is `^5.0.0 || ^6.0.0`
+    and doesn't support TS 7 yet. `.github/workflows/deploy.yml`'s
+    `node-version` bumped `20 → 22` — Astro 7 requires Node ≥22.12, so the
+    version bump alone would have broken CI deploys without this.
+    `astro.config.mjs` needed zero changes (i18n routing was already explicit
+    about `prefixDefaultLocale`/`redirectToDefaultLocale` rather than relying
+    on version-specific defaults that shifted in v6). Verified via
+    `astro check && astro build` (0 errors) plus manual screenshots across
+    both locales, the portal stub, and the 404 page at multiple viewport
+    widths post-upgrade — no visual or functional regressions found.
+  - **Chrome-headless testing gotcha hit along the way, worth remembering**:
+    `chrome --headless=new --window-size=W,H --screenshot=...` does not
+    reliably constrain the actual CSS viewport when `W` is small (observed:
+    requests for width 390 rendered internally at ~500px width regardless,
+    while the output PNG was still cropped to the requested 390×H canvas).
+    This produced a false "mobile header overflow" reading — the button/
+    hamburger were fully on-screen at the real ~500px render, just cropped
+    out of the smaller screenshot canvas. Confirmed via a temporary on-page
+    debug overlay reading `getBoundingClientRect()`/`innerWidth` directly
+    (removed before commit) and by re-testing at 800px+, which renders
+    correctly and matches the requested size. **If a headless-Chrome
+    screenshot at a narrow width shows clipped content again, verify with an
+    on-page measurement before trusting it as a real layout bug** — this
+    tool doesn't reliably prove narrow-viewport behavior on its own.
+  - **`LanguageSwitcher` moved from `.navcta` into `.navlinks`** — not a bug
+    fix (the investigation above found no real overflow), just a minor,
+    harmless simplification: it now collapses into the mobile dropdown menu
+    with the rest of nav instead of always occupying space in the persistent
+    mobile header row.
   - **Also not done**: `content-inventory.md`'s "content owner: not yet
     assigned" note — that's Reza's call to make, not something to resolve
     by picking someone.

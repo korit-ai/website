@@ -27,9 +27,9 @@ const home = `/${locale}/`;
       <a href={`${home}#about`}>{nav.about}</a>
       <a href={`${home}#contact`}>{nav.contact}</a>
       <a href={`/${locale}/portal`}>{nav.portal}</a>
+      <LanguageSwitcher locale={locale} />
     </div>
     <div class="navcta">
-      <LanguageSwitcher locale={locale} />
       <a href={`${home}#contact`} class="btn btn-primary">{nav.cta}</a>
       <button class="hamburger" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">
         <span></span><span></span><span></span>
