@@ -20,7 +20,7 @@ const home = `/${locale}/`;
 
 <header>
   <nav class="wrap">
-    <a href={home} class="logo"><span class="mark"></span>korit.ai</a>
+    <a href={home} class="logo"><span class="mark"></span><img src="/logo/korit-wordmark-on-light.svg" alt="korit.ai" class="wordmark" /></a>
     <div class="navlinks" id="site-nav">
       <a href={`${home}#product`}>{nav.product}</a>
       <a href={`${home}#focus`}>{nav.focus}</a>
@@ -79,6 +79,12 @@ const home = `/${locale}/`;
     inset: -4px;
     border: 1px solid var(--amber);
     border-radius: 4px;
+  }
+
+  .logo .wordmark {
+    height: 22px;
+    width: auto;
+    display: block;
   }
 
   .navlinks {
