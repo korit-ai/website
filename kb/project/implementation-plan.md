@@ -48,6 +48,21 @@ convention — see
 - **Mojibake in the original mockup's copy** (`â€"`, `Â°`, `Ã‚`-type artifacts
   from an encoding mismatch) was corrected when moving text into `en.json` —
   proper em dashes, `°`, `×`, etc.
+- **Real favicon + OG image, 2026-08-05** — `public/favicon.svg` (the navy
+  square in an amber ring, matching `Header.astro`'s `.logo .mark`) was kept
+  as the source design rather than redrawn, since it already matched the
+  live header mark; raster exports (`favicon-32x32.png`, `favicon-16x16.png`,
+  `apple-touch-icon.png` at 180×180 full-bleed, `favicon.ico`) were generated
+  from it and wired into `BaseLayout.astro`'s `<head>` alongside the SVG, for
+  browsers/contexts that don't support SVG favicons. `og-image-placeholder.svg`
+  was replaced with a real `og-image.png` (1200×630) — navy background, the
+  `ScanGraphic` building-wireframe motif rendered statically (no animation,
+  since OG images are static), hero headline/tagline copy pulled from
+  `en.json` rather than re-authored — wired into `og:image`/`twitter:image`
+  meta tags (previously absent entirely, not just pointed at the placeholder).
+  No new build-time dependency added for this — generated once via headless
+  Chrome screenshots of local HTML/SVG at exact target pixel dimensions, not
+  part of the ongoing build.
 - **Added `@astrojs/sitemap`** for a generated sitemap at build time, and a
   `public/robots.txt`. Cheap, standard, wasn't in the original plan.
 - **OG image is a placeholder SVG** (`public/og-image-placeholder.svg`), not
@@ -183,14 +198,14 @@ JSON (GitHub/Firebase secret, never in-repo), OAuth client ID.
 2. ~~Port content~~ — mockup sections rebuilt as Astro components, English
    copy in `en.json`.
 3. ~~Contact form~~ — originally `mailto:`-composing forms, no backend needed.
-4. Deploy — GitHub Actions pipeline live, custom domain verified over HTTPS.
-   DNS/domain provider: Namecheap (registrar) + Google Workspace (mail).
-   GitHub Pages needs 4 `A` records (and optionally `AAAA`) added at
-   Namecheap for `@`, without touching the existing Workspace MX/TXT/DKIM
-   records — see the DNS walkthrough shared with the team.
+4. ~~Deploy~~ — GitHub Actions pipeline live, custom domain verified over
+   HTTPS as of 2026-08-04 (`korit.ai` resolving to GitHub Pages, serving
+   200 over HTTPS). DNS/domain provider: Namecheap (registrar) + Google
+   Workspace (mail).
 5. i18n — Turkish locale added (`tr.json`, `LanguageSwitcher`, `tr/` pages),
    native-speaker review before it's public.
-6. Assets — real favicon/OG image, replacing placeholders.
+6. ~~Assets~~ — real favicon/OG image, replacing placeholders. Done
+   2026-08-05, see Deviations below.
 7. ~~Real lead capture, demo CTA, analytics~~ — implemented per
    [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md):
    Google-Form-backed `DemoRequestForm` + reworked `ContactForm`, Hero/Product
@@ -200,17 +215,18 @@ JSON (GitHub/Firebase secret, never in-repo), OAuth client ID.
 
 ## Open items
 
-- [ ] Point `korit.ai` DNS (Namecheap) at GitHub Pages — 4 `A` records for
-      `@`, optionally 4 `AAAA` records, leave existing Google Workspace
-      MX/TXT/DKIM records untouched.
-- [ ] Enable GitHub Pages (Settings → Pages → Source: GitHub Actions, Custom
-      domain: `korit.ai`, then "Enforce HTTPS" once the cert provisions) on
-      the `korit-ai/website` repo.
+- [x] ~~Point `korit.ai` DNS (Namecheap) at GitHub Pages~~ — done, verified
+      2026-08-04: `korit.ai` `A` records resolve to GitHub Pages'
+      `185.199.108/109/110/111.153`, `https://korit.ai` serves 200. See
+      domain-setup notes for the two gotchas hit along the way (private-repo
+      Pages restriction, Namecheap URL-redirect-record conflict).
+- [x] ~~Enable GitHub Pages~~ — done, verified 2026-08-04 (live and serving
+      over HTTPS, see above).
 - [ ] Decide who does the Turkish translation (Claude Code first pass +
       native-speaker review, or fully human-written) when that milestone starts.
-- [ ] Replace `public/og-image-placeholder.svg` with a real 1200×630 PNG/JPG,
-      and `public/favicon.svg` with a designed mark if the placeholder isn't
-      good enough.
+- [x] ~~Replace `public/og-image-placeholder.svg` with a real 1200×630
+      PNG/JPG, and `public/favicon.svg` with a designed mark~~ — done
+      2026-08-05, see Deviations above.
 - [x] ~~Create the Google Form + linked Sheet, pull `entry.*` field IDs, hand
       off the `formResponse` URL~~ — done 2026-08-02, `src/lib/leadForm.ts`
       has real values, verified live. See

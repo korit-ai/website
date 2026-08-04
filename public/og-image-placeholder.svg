@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#13223D"/>
-  <rect x="8.5" y="8.5" width="1183" height="613" fill="none" stroke="#E2A33B" stroke-width="1" stroke-opacity="0.4"/>
-  <text x="80" y="300" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="64" fill="#FFFFFF">korit.ai</text>
-  <text x="80" y="350" font-family="Inter, sans-serif" font-size="26" fill="#ECE7D8" opacity="0.75">Mapping doesn't stop where GPS does.</text>
-  <text x="80" y="560" font-family="JetBrains Mono, monospace" font-size="16" fill="#6FCFC0">PLACEHOLDER — replace with a real 1200x630 PNG/JPG before launch</text>
-</svg>

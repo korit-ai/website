@@ -22,12 +22,12 @@ the site is live.
 
 ## Known placeholders (must resolve before public launch)
 
-- `public/og-image-placeholder.svg` is not wired into any `og:image` meta tag
-  — needs a real 1200×630 raster image first (most platforms don't render
-  SVG for link previews).
-- `public/favicon.svg` is a simple placeholder derived from the header logo
-  mark, not a designed asset.
-
-Lead capture, analytics, and demo-CTA copy (per
-`specs/lead-capture-demo-analytics.md`) are all done as of 2026-08-02 — no
-longer placeholders, removed from this list.
+None remaining. Lead capture, analytics, and demo-CTA copy (per
+`specs/lead-capture-demo-analytics.md`) were done as of 2026-08-02. Favicon
+and OG image were done 2026-08-05 (see `implementation-plan.md` Deviations):
+`public/favicon.svg` (+ `favicon-32x32.png`, `favicon-16x16.png`,
+`apple-touch-icon.png`, `favicon.ico`) reuses the header logo mark — navy
+square in an amber ring, on paper — across all icon contexts; `og-image.png`
+(1200×630 raster) is wired into `og:image`/`twitter:image` in
+`BaseLayout.astro`, generated from the same design tokens and a static
+render of the `ScanGraphic` building-wireframe motif.
