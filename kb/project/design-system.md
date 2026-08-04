@@ -24,34 +24,6 @@ Fonts: `Space Grotesk` (display/headings), `Inter` (body), `JetBrains Mono`
 (technical/data labels — telemetry text, eyebrows, form labels), loaded via
 Google Fonts in `BaseLayout.astro`.
 
-## Wordmark
-
-Reza supplied `korit-ai-wordmark-rgb.svg` (2026-08-05) — a per-letter-colored
-"korit.ai" wordmark (Space Grotesk), the first real logo asset (previously
-the header/footer just rendered plain CSS-styled text). Three files now
-live in `public/logo/`:
-
-- `korit-wordmark-original.svg` — the file exactly as supplied, kept
-  unmodified for provenance/reference. **Its `k`/`o`/`r` colors
-  (`#EF4444`/`#22C55E`/`#3B82F6` — generic red/green/blue) don't match this
-  site's palette** and are not used anywhere on the site as-is.
-- `korit-wordmark-on-light.svg` — recolored to this design system's own
-  tokens: `k`=`--amber`, `o`=`--amber-bright`, `r`=`--cyan` (preserves the
-  original's "first three letters each get their own color" concept, but
-  using hues that already have a home in this palette rather than
-  off-palette primaries), `i`/`t`=`--ink`, `.ai`=`--fog-dark`. Used in
-  `Header.astro` (paper/light background).
-- `korit-wordmark-on-dark.svg` — same `k`/`o`/`r` accents (amber and cyan
-  both already read fine on navy — see contrast notes below), `i`/`t`=`--paper`,
-  `.ai`=`--fog`. Used in `Footer.astro` (navy/dark background).
-
-Recoloring decision confirmed by Reza 2026-08-05 (asked directly given the
-mismatch, rather than assuming either "use as-is" or "silently recolor").
-No `currentColor`/single-adaptive-file approach was used — two static,
-context-specific files are simpler to reason about than one file relying on
-CSS inheritance through an `<img>` tag (which doesn't work for `currentColor`
-anyway — `<img>`-referenced SVGs don't inherit page text color).
-
 ## Components (`src/components/`)
 
 - `Header.astro`, `Footer.astro` — site chrome, locale-aware links.
