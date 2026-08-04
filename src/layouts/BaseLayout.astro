@@ -28,6 +28,29 @@ function alternateURL(target: Locale) {
   segments[0] = target;
   return new URL(`/${segments.join('/')}/`, Astro.site);
 }
+
+// Open Graph wants region-qualified locale codes, not our bare 'en'/'tr'.
+const OG_LOCALE: Record<Locale, string> = { en: 'en_US', tr: 'tr_TR' };
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      name: 'korit.ai',
+      url: String(Astro.site),
+      logo: new URL('/apple-touch-icon.png', Astro.site).toString(),
+      description,
+      email: 'hello@korit.ai',
+    },
+    {
+      '@type': 'WebSite',
+      name: 'korit.ai',
+      url: String(Astro.site),
+      inLanguage: locale,
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -35,6 +58,7 @@ function alternateURL(target: Locale) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#13223D" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
@@ -48,6 +72,9 @@ function alternateURL(target: Locale) {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
+    <meta property="og:locale" content={OG_LOCALE[locale]} />
+    {locales.filter((loc) => loc !== locale).map((loc) => <meta property="og:locale:alternate" content={OG_LOCALE[loc]} />)}
+    <meta property="og:site_name" content="korit.ai" />
     <meta property="og:image" content={new URL('/og-image.png', Astro.site)} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -59,6 +86,7 @@ function alternateURL(target: Locale) {
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} is:inline />
     <!-- Cookieless analytics, no consent banner needed — see kb/project/specs/lead-capture-demo-analytics.md -->
     <script is:inline data-goatcounter={GOATCOUNTER_ENDPOINT} async src="//gc.zgo.at/count.js"></script>
   </head>

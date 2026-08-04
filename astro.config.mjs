@@ -3,7 +3,14 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://korit.ai',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: 'tr',
+        locales: { tr: 'tr', en: 'en' },
+      },
+    }),
+  ],
   redirects: {
     '/': '/tr/',
   },

@@ -26,6 +26,51 @@ convention — see
 
 ## Deviations from the original draft plan
 
+- **Polish pass from a self-directed audit, 2026-08-05** (Reza asked for
+  investigation + suggestions, then "fix them all"):
+  - **Chart axis-label contrast fix** — the Problem-section SVG chart's axis
+    labels (`en/index.astro` and `tr/index.astro`, both copies) used
+    `fill="#8890A0"` (the lighter `--fog` token) at 9.5px on a white card:
+    3.21:1 contrast, fails WCAG AA (needs 4.5:1 for text this small).
+    Switched to `var(--fog-dark)` (5.92:1), matching every other muted-text
+    use on the site. The dashed divider *line* in the same chart keeps
+    `#8890A0` — that's a non-text graphical element, held to the lower 3:1
+    bar, which it already clears.
+  - **`src/pages/404.astro` added** — GitHub Pages was serving its own
+    generic 404 for any bad/typo'd URL. New page is deliberately bilingual
+    (not locale-JSON-driven like every other page) since a 404 can be hit
+    from either locale or a URL with no locale segment at all — reuses
+    `BaseLayout` with `locale="tr"` so header/footer/language-switcher still
+    work, shows Turkish then English "not found" copy stacked, hardcoded
+    inline rather than added to `en.json`/`tr.json` since it's not really
+    page content, it's a utility page.
+  - **Sitemap `hreflang` alternates** — `@astrojs/sitemap`'s `i18n` config
+    (`defaultLocale: 'tr'`, `locales: { tr: 'tr', en: 'en' }`) added in
+    `astro.config.mjs`. Previously the sitemap declared the `xhtml`
+    namespace but never emitted `<xhtml:link>` entries — the locale-alternate
+    signal only existed in each page's own `<head>`, not in the file crawlers
+    read first.
+  - **`og:locale` / `og:locale:alternate` / `og:site_name`** added to
+    `BaseLayout.astro` — region-qualified (`tr_TR`, `en_US`) since that's
+    what Open Graph expects, not the bare `tr`/`en` used for `hreflang`.
+  - **`theme-color` meta** (`#13223D`, the brand navy) — mobile browser
+    chrome now tints to match instead of defaulting to white/gray.
+  - **JSON-LD structured data** — an `Organization` + `WebSite` `@graph` in
+    `BaseLayout.astro`'s `<head>`, using the page's own `description` prop
+    (no new content invented) and `hello@korit.ai`. `logo` points at
+    `apple-touch-icon.png` (the mark) rather than `og-image.png` (a banner,
+    not a logo).
+  - **Not done as part of this pass, flagged instead**: `npm audit` reports
+    a high-severity transitive vuln in `sharp` (libvips CVEs) and a moderate
+    dev-server request-forgery issue in esbuild/vite — fixing requires
+    bumping Astro three major versions (4.16 → 7.x), a real breaking-change
+    upgrade that needs its own dedicated testing pass, not bundled into this
+    one. The site has zero `<img>` tags (all graphics are inline SVG), so
+    the vulnerable `sharp` code path is likely dormant, not actively
+    exploitable — lowers urgency but doesn't remove the item.
+  - **Also not done**: `content-inventory.md`'s "content owner: not yet
+    assigned" note — that's Reza's call to make, not something to resolve
+    by picking someone.
 - **`tr` made the default locale, 2026-08-05** — Reza's explicit call.
   `astro.config.mjs`: `i18n.defaultLocale` is `tr`, and `redirects['/']` now
   points at `/tr/` instead of `/en/`. `BaseLayout.astro`'s `hreflang="x-default"`

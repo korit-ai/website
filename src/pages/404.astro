@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getContent } from '../i18n/content';
+
+// Bilingual by design, not locale-driven copy: a 404 can be hit from either
+// locale (or a bad/typo'd URL with no locale segment at all), so unlike
+// every other page this one doesn't know which language the visitor wanted.
+const t = getContent('tr');
+---
+
+<BaseLayout locale="tr" title="404 — Sayfa bulunamadı / Page not found" description="Sayfa bulunamadı." nav={t.nav} footerTagline={t.footer.tagline}>
+  <section class="notfound">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow">404</span>
+        <h1>Sayfa bulunamadı.</h1>
+        <p>Aradığınız sayfa taşınmış ya da hiç var olmamış olabilir.</p>
+        <a class="back-link" href="/tr/">← Ana sayfaya dön</a>
+      </div>
+      <div class="reveal lang-en">
+        <h2>Page not found.</h2>
+        <p>The page you're looking for may have moved, or never existed.</p>
+        <a class="back-link" href="/en/">← Back to home</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    min-height: calc(100vh - 72px - 121px);
+    display: flex;
+    align-items: center;
+  }
+
+  .notfound .wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .notfound .eyebrow {
+    color: var(--fog-dark);
+  }
+
+  .notfound h1 {
+    font-size: clamp(28px, 4vw, 42px);
+    margin: 16px 0 14px;
+  }
+
+  .notfound .lang-en {
+    padding-top: 32px;
+    border-top: 1px solid var(--paper-line);
+  }
+
+  .notfound h2 {
+    font-size: clamp(20px, 3vw, 26px);
+    color: var(--fog-dark);
+    margin-bottom: 12px;
+  }
+
+  .notfound p {
+    color: var(--fog-dark);
+    font-size: 16px;
+    max-width: 480px;
+    margin-bottom: 22px;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--fog-dark);
+    border-bottom: 1px solid var(--paper-line);
+    padding-bottom: 2px;
+  }
+
+  .back-link:hover {
+    color: var(--ink);
+  }
+</style>
