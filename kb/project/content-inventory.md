@@ -1,12 +1,21 @@
 # Content Inventory
 
-## Pages (English, live)
+## Pages, live
 
 | Path | Purpose | Content source |
 |---|---|---|
-| `/` | Static redirect to `/en/` | `astro.config.mjs` `redirects` |
-| `/en/` | Single-page marketing site: Hero, Problem, Product, Focus Areas, About, Contact (Request a Demo + General Inquiry panels) | `src/data/en.json` |
-| `/en/portal` | Customer portal stub — explains the future capability, email-capture "notify me" | `src/data/en.json` (`portal` key) |
+| `/` | Static redirect to `/tr/` (default locale) | `astro.config.mjs` `redirects` |
+| `/tr/`, `/en/` | Single-page marketing site: Hero, Problem, Product, Focus Areas, About, Contact (Request a Demo + General Inquiry panels) | `src/data/{locale}.json` |
+| `/404` | Bilingual 404, not locale-prefixed | `src/pages/404.astro` |
+
+**No `/en/portal` or `/tr/portal` stub anymore** — removed 2026-08-06 once
+`korit-portal` actually shipped. The header/footer "Customer Portal" nav
+link now points straight at `https://portal.korit.ai` (external), per the
+portal spec's own Handoff Notes, which flagged this swap as a follow-up PR
+here once the real app existed. Also removed as dead code alongside the
+stub: the `portal` content block in `en.json`/`tr.json` (headline/body/
+notify-form copy) and the `'Portal Interest'` inquiry type in
+`src/lib/leadForm.ts` — both existed only to serve that stub.
 
 Content owner: not yet assigned — flag for whoever owns marketing copy once
 the site is live.

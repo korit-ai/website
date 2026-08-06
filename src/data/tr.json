@@ -152,18 +152,6 @@
       }
     }
   },
-  "portal": {
-    "eyebrow": "Müşteri Portalı",
-    "headline": "Çok yakında.",
-    "body": "korit.ai müşterileri, haritalama verilerini doğrudan ekibimize işlenmek üzere yüklemek için buradan giriş yapabilecek. Henüz canlı değiliz — e-postanızı bırakın, açıldığı an size haber verelim.",
-    "form": {
-      "email_label": "E-posta",
-      "submit": "Haberdar et",
-      "success": "Listeye eklendiniz — portal açıldığında size e-posta göndereceğiz.",
-      "error": "Gönderilirken bir sorun oluştu. Bunun yerine doğrudan hello@korit.ai adresinden bize e-posta gönderin."
-    },
-    "back_link": "← Ana sayfaya dön"
-  },
   "footer": {
     "tagline": "3D haritalama, dış mekandan iç mekana"
   }

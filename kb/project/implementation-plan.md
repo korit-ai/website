@@ -17,15 +17,26 @@ convention — see
 | Styling | Plain CSS, custom properties | Design tokens carried over from the mockup; no framework needed at this scale |
 | Lead capture | Google Form (existing Workspace) + custom-styled UI, `no-cors` POST | Replaces the earlier `mailto:` approach — see [specs/lead-capture-demo-analytics.md](specs/lead-capture-demo-analytics.md) |
 | Demo vs. general contact | Split into two distinct CTAs/forms, same backend | Qualifying demo CTA reads as more credible pre-M3-campaign, gives free segmentation data |
-| Analytics | GoatCounter, added before demo-campaign traffic | Cookieless, no consent banner, supports custom events (demo/contact/portal submissions) |
+| Analytics | GoatCounter, added before demo-campaign traffic | Cookieless, no consent banner, supports custom events (demo/contact submissions) |
 | Languages | `en` + `tr`, both live; **`tr` is the default locale** | Original "English only, Turkish deferred until reviewed" plan superseded 2026-08-05 — see Deviations below |
 | Domain | `korit.ai` (`public/CNAME`) | Confirmed |
-| Portal | `/tr/portal` (default) and `/en/portal` stub, this repo | Full customer portal is a future, separate repo (`korit-portal`) — see Phase 2 below |
-| Repo split | `website` (this repo) + future `korit-portal` | Different hosting targets and lifecycles |
+| Portal | External link to `https://portal.korit.ai` from nav/footer, no stub page in this repo | `korit-portal` shipped 2026-08-06 — the stub existed only until the real thing did, see Deviations below |
+| Repo split | `website` (this repo) + `korit-portal` | Different hosting targets and lifecycles |
 | Hosting | GitHub Pages via GitHub Actions on push to `main` | Already decided |
 
 ## Deviations from the original draft plan
 
+- **Portal stub removed, 2026-08-06** — `korit-portal` shipped and is live
+  at `portal.korit.ai`, so the placeholder this repo carried since Phase 1
+  (`/en/portal`, `/tr/portal` — "coming soon" + email-capture notify-me
+  form) is no longer needed. Removed: both page files, the `portal` content
+  block from `en.json`/`tr.json` (headline/body/form copy — `nav.portal`,
+  the nav *label*, stays since it's still a real link), and the now-unused
+  `'Portal Interest'` inquiry type from `src/lib/leadForm.ts`'s
+  `InquiryType` union. Header/Footer's "Customer Portal" link now points
+  directly at `https://portal.korit.ai` (external). This was flagged as a
+  planned follow-up in the portal spec's own Handoff Notes from the start
+  — not a surprise change, just executed once the real app existed.
 - **Polish pass from a self-directed audit, 2026-08-05** (Reza asked for
   investigation + suggestions, then "fix them all"):
   - **Chart axis-label contrast fix** — the Problem-section SVG chart's axis
@@ -123,7 +134,9 @@ convention — see
   with only one locale live would've been dead UI. Wired into `Header.astro`'s
   `.navcta`. Swaps the leading `/en/`/`/tr/` path segment via
   `Astro.url.pathname`, preserving the rest of the path (so switching locale
-  on `/en/portal` lands on `/tr/portal`, not `/tr/`).
+  mid-page stays on the equivalent page rather than bouncing to the locale
+  root — relevant if a second real page is ever added; currently `/en/` and
+  `/tr/` are the only pages besides the locale-agnostic 404).
 - **`hreflang` alternate links added to `BaseLayout.astro`** — not in the
   original plan, but cheap and correct once two locales exist for the same
   page structure; loops over `locales` from `i18n/content.ts` plus an
@@ -221,13 +234,12 @@ website/
 │   │   ├── leadForm.ts            # Google Form config + submitLead()
 │   │   └── analytics.ts           # GoatCounter config + trackEvent()
 │   ├── pages/
+│   │   ├── 404.astro               # bilingual, not locale-prefixed
 │   │   ├── en/
-│   │   │   ├── index.astro
-│   │   │   └── portal.astro       # "/" -> "/en/" is a static redirect,
-│   │   │                          # see `redirects` in astro.config.mjs
+│   │   │   └── index.astro         # "/" -> "/tr/" is a static redirect,
+│   │   │                           # see `redirects` in astro.config.mjs
 │   │   └── tr/
-│   │       ├── index.astro
-│   │       └── portal.astro
+│   │       └── index.astro
 │   ├── data/
 │   │   ├── en.json
 │   │   └── tr.json
@@ -248,21 +260,18 @@ website/
    name, email, company, industry, use case, optional message) and "General
    Inquiry" (name, email, message). Both post to the same Google Form; the
    Hero primary CTA and a Product-section CTA both deep-link to `#demo`.
-7. Nav/Footer — includes a "Customer Portal" link → `/{locale}/portal`
-   (`/tr/portal` by default, `/en/portal` under the English prefix)
+7. Nav/Footer — includes a "Customer Portal" link → `https://portal.korit.ai`
+   (external, both locales — no stub page in this repo since 2026-08-06)
 
-## Portal entry point (this repo, stub only)
+## Phase 2 (shipped, separate repo): Customer Portal
 
-`src/pages/tr/portal.astro` + `src/pages/en/portal.astro` (identical shape,
-per-locale copy):
-- Explains the future capability in plain terms.
-- Email-capture "notify me" form, same Google Form backend as the contact/demo
-  forms (`Inquiry Type: "Portal Interest"`), no working login.
-- Linked from header nav and footer.
-
-## Phase 2 (future, separate repo): Customer Portal
-
-Not built in this pass. Documented so the website's IA anticipates it correctly.
+**Superseded/historical** — this section is the original draft vision from
+before `korit-portal` was actually scoped and built. The real spec is
+[korit-meta/kb/global/04-product/portal-spec-v1-delivery.md](../../../korit-meta/kb/global/04-product/portal-spec-v1-delivery.md),
+and the shipped app's own stack notes are in
+`korit-portal/kb/project/stack.md`. Kept below for historical context, not
+as current fact — e.g. it describes a Google Drive upload flow, but what
+actually shipped uses Firebase Storage with no v1 upload at all.
 
 - **Repo:** `korit-portal`, hosted separately from `website`.
 - **Auth:** Firebase Authentication, Google Sign-In, allowlisted accounts

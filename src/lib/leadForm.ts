@@ -16,7 +16,7 @@ export const FIELD_ENTRIES = {
 
 export type LeadField = keyof typeof FIELD_ENTRIES;
 
-export type InquiryType = 'Demo Request' | 'General Contact' | 'Portal Interest';
+export type InquiryType = 'Demo Request' | 'General Contact';
 
 // mode: 'no-cors' means the response is opaque — a resolved promise is the only
 // success signal available client-side. Treat "fetch didn't throw" as success and

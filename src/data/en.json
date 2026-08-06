@@ -152,18 +152,6 @@
       }
     }
   },
-  "portal": {
-    "eyebrow": "Customer Portal",
-    "headline": "Coming soon.",
-    "body": "korit.ai customers will be able to log in here to upload mapping data for processing directly to our team. We're not live yet — leave your email and we'll let you know the moment it opens.",
-    "form": {
-      "email_label": "Email",
-      "submit": "Notify me",
-      "success": "You're on the list — we'll email you when the portal opens.",
-      "error": "Something went wrong sending that. Email us directly at hello@korit.ai instead."
-    },
-    "back_link": "← Back to home"
-  },
   "footer": {
     "tagline": "3D mapping, outdoor to indoor"
   }
