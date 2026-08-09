@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getContent } from '../../../i18n/content';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft && data.locale === 'en');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const t = getContent('en');
+---
+
+<BaseLayout
+  locale="en"
+  title={`${post.data.title} — korit.ai`}
+  description={post.data.description}
+  nav={t.nav}
+  footerTagline={t.footer.tagline}
+>
+  <article class="blog-post">
+    <div class="wrap">
+      <time datetime={post.data.pubDate.toISOString()}>
+        {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </time>
+      <h1>{post.data.title}</h1>
+      <div class="content"><Content /></div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .blog-post {
+    padding: 96px 0 110px;
+  }
+
+  .blog-post .wrap {
+    max-width: 720px;
+  }
+
+  .blog-post time {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fog);
+  }
+
+  .blog-post h1 {
+    font-size: clamp(28px, 4vw, 38px);
+    margin: 14px 0 32px;
+  }
+
+  .content :global(p) {
+    margin-bottom: 18px;
+    font-size: 16px;
+  }
+
+  .content :global(h2) {
+    font-size: 22px;
+    margin: 32px 0 14px;
+  }
+
+  .content :global(a) {
+    border-bottom: 1.5px solid var(--amber);
+  }
+</style>

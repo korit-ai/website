@@ -27,6 +27,24 @@
       "status": { "label": "Durum", "value": "Erken geliştirme aşaması" }
     }
   },
+  "demoPage": {
+    "eyebrow": "Dış Mekan → İç Mekan · SLAM Haritalama",
+    "headline": "Sahanızın haritalandığını görün.",
+    "subhead": "Ücretsiz, yükümlülük içermeyen bir demo — sahanızı bize anlatın, planlamak için sizinle iletişime geçelim.",
+    "meta": {
+      "title": "Demo Talep Edin — korit.ai",
+      "description": "korit.ai'nin 3D haritalama donanımıyla sahanızın haritalandığını görün. Ücretsiz, yükümlülük içermeyen bir demo talep edin."
+    }
+  },
+  "blog": {
+    "eyebrow": "Güncellemeler",
+    "headline": "Sahadan haberler",
+    "empty": "Henüz yazı yok — yakında burada olacak.",
+    "meta": {
+      "title": "Güncellemeler — korit.ai",
+      "description": "korit.ai'den haberler ve güncellemeler."
+    }
+  },
   "problem": {
     "eyebrow": "Sorun",
     "headline": "Çoğu haritalama sistemi, iç mekana girer girmez doğruluğunu kaybeder.",

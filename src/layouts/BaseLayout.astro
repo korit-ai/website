@@ -18,9 +18,10 @@ interface Props {
     cta: string;
   };
   footerTagline: string;
+  noindex?: boolean;
 }
 
-const { locale, title, description, nav, footerTagline } = Astro.props;
+const { locale, title, description, nav, footerTagline, noindex = false } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 function alternateURL(target: Locale) {
@@ -61,6 +62,7 @@ const structuredData = {
     <meta name="theme-color" content="#13223D" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
     <link rel="canonical" href={canonicalURL} />
     {locales.map((loc) => <link rel="alternate" hreflang={loc} href={alternateURL(loc)} />)}
     <link rel="alternate" hreflang="x-default" href={alternateURL('tr')} />

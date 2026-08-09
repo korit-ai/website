@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getContent } from '../../../i18n/content';
+import { getCollection } from 'astro:content';
+
+const t = getContent('tr');
+const posts = (await getCollection('blog', ({ data }) => !data.draft && data.locale === 'tr')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout locale="tr" title={t.blog.meta.title} description={t.blog.meta.description} nav={t.nav} footerTagline={t.footer.tagline}>
+  <section class="blog-index">
+    <div class="wrap">
+      <span class="eyebrow">{t.blog.eyebrow}</span>
+      <h1>{t.blog.headline}</h1>
+      {
+        posts.length === 0 ? (
+          <p class="empty">{t.blog.empty}</p>
+        ) : (
+          <ul class="post-list">
+            {posts.map((post) => (
+              <li>
+                <a href={`/tr/blog/${post.id}/`}>
+                  <h2>{post.data.title}</h2>
+                  <p>{post.data.description}</p>
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {post.data.pubDate.toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </time>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-index {
+    padding: 96px 0 110px;
+  }
+
+  .blog-index h1 {
+    font-size: clamp(28px, 4vw, 40px);
+    margin: 18px 0 36px;
+  }
+
+  .empty {
+    color: var(--fog-dark);
+    font-size: 16px;
+  }
+
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+  }
+
+  .post-list a {
+    display: block;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--paper-line);
+  }
+
+  .post-list h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .post-list p {
+    color: var(--fog-dark);
+    font-size: 15px;
+    margin-bottom: 8px;
+    max-width: 640px;
+  }
+
+  .post-list time {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fog);
+  }
+</style>

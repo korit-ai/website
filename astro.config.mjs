@@ -9,6 +9,10 @@ export default defineConfig({
         defaultLocale: 'tr',
         locales: { tr: 'tr', en: 'en' },
       },
+      // The /demo/ pages are ad-campaign landing pages, not organic content —
+      // keep them out of the sitemap (paired with a noindex meta tag on the
+      // pages themselves) so they don't compete with the main page for search.
+      filter: (page) => !page.includes('/demo'),
     }),
   ],
   redirects: {

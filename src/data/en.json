@@ -27,6 +27,24 @@
       "status": { "label": "Status", "value": "Early development" }
     }
   },
+  "demoPage": {
+    "eyebrow": "Outdoor → Indoor · SLAM Mapping",
+    "headline": "See your site mapped.",
+    "subhead": "A free demo, no obligation — tell us about your site and we'll follow up to schedule it.",
+    "meta": {
+      "title": "Request a Demo — korit.ai",
+      "description": "See your site mapped with korit.ai's 3D mapping hardware. Request a free, no-obligation demo."
+    }
+  },
+  "blog": {
+    "eyebrow": "Updates",
+    "headline": "From the field",
+    "empty": "No posts yet — check back soon.",
+    "meta": {
+      "title": "Updates — korit.ai",
+      "description": "News and updates from korit.ai."
+    }
+  },
   "problem": {
     "eyebrow": "The problem",
     "headline": "Most mapping systems lose accuracy the moment you walk indoors.",
