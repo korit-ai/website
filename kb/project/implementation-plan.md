@@ -26,6 +26,23 @@ convention — see
 
 ## Deviations from the original draft plan
 
+- **Push-triggered deploy hangs, first hit 2026-08-07, recurred 2026-08-09**
+  — the automatic `deploy` job in `.github/workflows/deploy.yml` (triggered
+  by `push` to `main`) has twice sat in `queued` indefinitely with no runner
+  ever assigned and no deployment status emitted, even though the `build`
+  job in the same run completed successfully and uploaded the Pages
+  artifact. Investigated via the GitHub API (2026-08-14, run
+  `31330753389` for commit `cc56c83`): no pending-deployment approval gate,
+  no environment protection rule beyond the expected `main`-only branch
+  policy, repo/org Actions permissions both `enabled`/`allowed_actions: all`,
+  and `GET /repos/korit-ai/website/pages` confirms `build_type: "workflow"`
+  is correctly set — so this isn't a repo misconfiguration. Both times, the
+  fix was a manual re-run via `workflow_dispatch` (Actions tab → "Run
+  workflow", after cancelling the stuck run) — see `stack.md`'s CI/CD entry.
+  Net effect: a `main` push can silently sit undeployed for days unless
+  someone notices and manually re-triggers it. Not yet root-caused past
+  "GitHub-side scheduling issue with this specific environment/deployment
+  path" — if it recurs a third time, worth a GitHub support ticket.
 - **Portal stub removed, 2026-08-06** — `korit-portal` shipped and is live
   at `portal.korit.ai`, so the placeholder this repo carried since Phase 1
   (`/en/portal`, `/tr/portal` — "coming soon" + email-capture notify-me

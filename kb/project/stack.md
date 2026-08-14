@@ -30,9 +30,18 @@
   `astro.config.mjs`.
 - **Hosting:** GitHub Pages, custom domain `korit.ai` via `public/CNAME`.
 - **CI/CD:** `.github/workflows/deploy.yml` — push to `main` → `npm ci` →
-  `npm run build` → `actions/deploy-pages`. Requires GitHub Pages source set
-  to "GitHub Actions" in repo settings (not yet done — see Open Items in
-  `implementation-plan.md`).
+  `npm run build` → `actions/deploy-pages`. Pages source is set to "GitHub
+  Actions" in repo settings, confirmed via `GET /repos/korit-ai/website/pages`
+  (`build_type: "workflow"`) — verified 2026-08-14. Note: the automatic
+  push-triggered `deploy` job has twice (2026-08-07, 2026-08-09) hung
+  indefinitely in `queued` with no runner ever assigned and no deployment
+  status emitted, despite the `build` job in the same run completing fine —
+  no environment protection rule, pending-review gate, or Actions
+  permission issue was found in either case. A manual re-run via
+  `workflow_dispatch` (Actions tab → "Run workflow", or Actions →
+  cancel the stuck run first) has resolved it both times. If a push to
+  `main` doesn't go live within a few minutes, check the Actions tab for a
+  `deploy` job stuck in `queued` before assuming the build itself failed.
 
 Full rationale and the phased rollout are in
 [implementation-plan.md](implementation-plan.md).
