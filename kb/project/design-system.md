@@ -1,11 +1,11 @@
 # Design System
 
 No company-wide brand doc exists yet in
-`../../../korit-meta/kb/global/00-company/` — these tokens are currently
+`../../../kb/global/00-company/` — these tokens are currently
 authoritative only here, carried over from the original marketing mockup.
 If a global brand doc is ever created, this file should link to it instead
 of restating values (see
-[context-routing](../../../korit-meta/kb/global/01-conventions/context-routing.md)).
+[context-routing](../../../kb/global/01-conventions/context-routing.md)).
 
 ## Tokens (`src/styles/global.css`)
 

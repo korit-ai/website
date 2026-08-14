@@ -12,7 +12,7 @@ you don't need and shouldn't read other project repos.
 
 1. Read this repo's `CLAUDE.md` (already auto-loaded) and `kb/project/`.
 2. Only pull global KB content when the task needs it: check
-   `../korit-meta/kb/global/INDEX.md` for the relevant doc rather than
+   `../kb/global/INDEX.md` for the relevant doc rather than
    guessing. `01-conventions` (git/PR conventions, doc templates) applies to
    your work here; `03-business` only matters if the task explicitly touches
    messaging, positioning, or public-facing claims — don't load it otherwise.
@@ -47,7 +47,7 @@ change rather than leaving it for later.
   turns out to be about conventions rather than the website itself, say so
   rather than improvising a local copy of global content.
 - Commit and push directly to `main` — Reza has twice confirmed this
-  overrides `../korit-meta/kb/global/01-conventions/git-and-pr-conventions.md`'s
+  overrides `../kb/global/01-conventions/git-and-pr-conventions.md`'s
   default PR-per-change rule for this repo specifically (single founder, no
   team reviewing PRs yet; the gate is pure overhead at this stage). Don't
   propose reinstating a PR flow unprompted.

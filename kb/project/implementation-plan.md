@@ -7,7 +7,7 @@ superseded by the component build).
 This is the working plan for the `website` repo, kept here rather than in
 `korit-meta` because it's a fact specific to this project, not a company-wide
 convention — see
-[context-routing](../../../korit-meta/kb/global/01-conventions/context-routing.md).
+[context-routing](../../../kb/global/01-conventions/context-routing.md).
 
 ## Decisions (locked)
 
@@ -267,7 +267,7 @@ website/
 
 **Superseded/historical** — this section is the original draft vision from
 before `korit-portal` was actually scoped and built. The real spec is
-[korit-meta/kb/global/04-product/portal-spec-v1-delivery.md](../../../korit-meta/kb/global/04-product/portal-spec-v1-delivery.md),
+[korit-meta/kb/global/04-product/portal-spec-v1-delivery.md](../../../kb/global/04-product/portal-spec-v1-delivery.md),
 and the shipped app's own stack notes are in
 `korit-portal/kb/project/stack.md`. Kept below for historical context, not
 as current fact — e.g. it describes a Google Drive upload flow, but what
