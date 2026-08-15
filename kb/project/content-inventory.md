@@ -6,7 +6,7 @@
 |---|---|---|
 | `/` | Static redirect to `/tr/` (default locale) | `astro.config.mjs` `redirects` |
 | `/tr/`, `/en/` | Single-page marketing site: Hero, Problem, Product, Focus Areas, About, Contact (Request a Demo + General Inquiry panels) | `src/data/{locale}.json` |
-| `/tr/demo/`, `/en/demo/` | Standalone demo-request landing page — the destination URL for paid campaign traffic (M3 milestone), separate from the anchor-scroll `#demo` CTA on the main page. Reuses `DemoRequestForm` (same lead/analytics wiring). `noindex`'d and excluded from the sitemap (`astro.config.mjs` `sitemap.filter`) since it's ad-only, not organic content. **`demoPage.*` copy in `en.json`/`tr.json` is new/draft** — needs the same review pass Reza gave the original demo-CTA copy before it's treated as final. | `src/data/{locale}.json` (`demoPage` key) |
+| `/tr/demo/`, `/en/demo/` | Standalone demo-request landing page — the destination URL for paid campaign traffic (M3 milestone), separate from the anchor-scroll `#demo` CTA on the main page. Reuses `DemoRequestForm` (same lead/analytics wiring). `noindex`'d and excluded from the sitemap (`astro.config.mjs` `sitemap.filter`) since it's ad-only, not organic content. `demoPage.*` copy in `en.json`/`tr.json` reviewed and approved by Reza, 2026-08-15. | `src/data/{locale}.json` (`demoPage` key) |
 | `/tr/blog/`, `/en/blog/` | Blog/updates listing + post pages. Scaffold only as of 2026-08-09 — no real posts, `example-post.md` is a template (`draft: true`, excluded from build). **Not linked from header nav yet** — add `nav.blog` + a `Header.astro` link once at least one real post is published, per-locale (a post needs one `.md` file per language to appear in both `/en/blog/` and `/tr/blog/`). See "Adding a blog post" below. | `src/content/blog/*.md` via `src/content.config.ts`, empty-state copy from `blog.empty` in `{locale}.json` |
 | `/rss.xml` | Combined RSS feed (both locales) of non-draft posts | `src/pages/rss.xml.js` |
 | `/404` | Bilingual 404, not locale-prefixed | `src/pages/404.astro` |
@@ -45,12 +45,11 @@ the site is live.
 
 ## Known placeholders (must resolve before public launch)
 
-`demoPage.*` copy (`en.json`/`tr.json`) — new as of 2026-08-09 for the
-`/demo/` landing page, not yet reviewed/approved by Reza the way the
-original demo-CTA copy was. Flag for review before the page is used as an
-actual ad-campaign destination.
+None remaining. `demoPage.*` copy (`en.json`/`tr.json`, added 2026-08-09 for
+the `/demo/` landing page) was reviewed and approved by Reza as-is,
+2026-08-15 — cleared to use as the live ad-campaign destination.
 
-Otherwise none remaining. Lead capture, analytics, and demo-CTA copy (per
+Lead capture, analytics, and demo-CTA copy (per
 `specs/lead-capture-demo-analytics.md`) were done as of 2026-08-02. Favicon
 and OG image were done 2026-08-05 (see `implementation-plan.md` Deviations):
 `public/favicon.svg` (+ `favicon-32x32.png`, `favicon-16x16.png`,
